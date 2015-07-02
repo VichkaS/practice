@@ -13,7 +13,6 @@ and open the template in the editor.
         <p id="X"></p> 
         <p id="Y"></p>
         <script type="text/javascript">
-            window.captureEvents(Event.MOUSEMOVE);
             window.onmousemove=printCoords;
             function printCoords(e){
                 document.getElementById('X').innerHTML="x = "+event.clientX;
