@@ -5,7 +5,17 @@
         <meta charset="utf-8">
     </head>
     <body>              
-        <h1>Hello, JavaScript!<h1>         
+        <p id="result">Hello, JavaScript!</p> 
+        <input id="name" type="text">         
+        <button type="button" onclick="printString()">Greeting!</button>      
+        <script type="text/javascript">
+            document.getElementById('result').style.fontSize = '24px';   
+            function printString() {
+                document.getElementById('result').innerHTML = "JavaScript is greeting your, "+
+                        document.getElementById('name').value; 
+		
+            }
+        </script>
     </body>
 </html>
 
