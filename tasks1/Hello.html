@@ -1,28 +1,23 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Hello, JavaScript!</title>
-        <meta charset="utf-8">
-    </head>
-    <body>              
-        <p id="result" >Hello, JavaScript!</p> 
-        <input id="name" type="text">         
-        <button type="button" onclick="printString()">Greeting!</button>      
-        <script type="text/javascript">
-            var color;
-            document.getElementById('result').style.fontSize = '24px';   
-            function getRandomColor() {
-                        color="#"+Math.floor(Math.random()*0xffffff).toString(16);
-		}             
-            function printString() {
-                getRandomColor();
-                document.getElementById('result').style.color=color;
-                
-                document.getElementById('result').innerHTML = "JavaScript is greeting your, "+
-                        document.getElementById('name').value; 
-		
-            }
-        </script>
-    </body>
+  <head>
+    <title>Hello, JavaScript!</title>
+      <meta charset="utf-8">
+  </head>
+  <body>              
+    <p id="result" >Hello, JavaScript!</p> 
+    <input id="name" type="text">         
+    <input type="button" onclick="printString()" value="Greeting!">      
+    <script type="text/javascript">            
+      var result = document.getElementById( 'result' );  
+      result.style.fontSize = '24px';                          
+      function printString() {
+        result.style.color = getRandomColor();                
+        result.innerHTML = "JavaScript is greeting your, " + document.getElementById( 'name' ).value; 		
+      }
+      function getRandomColor() {
+        return "#" + Math.floor(Math.random() * 0xffffff).toString(16);
+      }  
+    </script>
+  </body>
 </html>
-
