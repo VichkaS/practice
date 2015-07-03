@@ -8,16 +8,6 @@
     <p id="result" >Hello, JavaScript!</p> 
     <input id="name" type="text">         
     <input type="button" onclick="printString()" value="Greeting!">      
-    <script type="text/javascript">            
-      var result = document.getElementById( 'result' );  
-      result.style.fontSize = '24px';                          
-      function printString() {
-        result.style.color = getRandomColor();                
-        result.innerHTML = "JavaScript is greeting your, " + document.getElementById( 'name' ).value; 		
-      }
-      function getRandomColor() {
-        return "#" + Math.floor(Math.random() * 0xffffff).toString(16);
-      }  
-    </script>
+    <script src="script.js"></script>
   </body>
 </html>
