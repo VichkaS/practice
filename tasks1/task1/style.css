@@ -1,3 +1,7 @@
+body{
+  /*background:url(bg.jpg) #45F;*/
+  text-align: center;
+}
 p {
   font:24px comic sans ms;
 }
