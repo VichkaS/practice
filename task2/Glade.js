@@ -2,39 +2,28 @@ function glade(x, y)
 {
     this.x = x;
     this.y = y;
-    this.strokeStyle = "#FFFFFF";
+    this.lineWidth = 3;
+    this.strokeStyle = "#000000";
 }
 
 glade.prototype.drawGlade = function(ctx, x, y, a, b, color) {
 
     x = x;
     y = y;
-    //x = this.x;
-    //y = this.y;
-    //a = 400;
-    //b = 150;
-    ctx.strokeStyle = this.strokeStyle;
-    // Запоминаем положение системы координат (CК) и масштаб
-  ctx.save();
-  ctx.beginPath();
+    ctx.save();
+    ctx.beginPath();
+    ctx.lineWidth = this.lineWidth;
 
   // Переносим СК в центр будущего эллипса
   ctx.translate(x, y);
- 
-  /*
-   * Масштабируем по х.
-   * Теперь нарисованная окружность вытянется в a / b раз
-   * и станет эллипсом
-   */
   ctx.scale(a / b, 1);
- 
+  ctx.strokeStyle = this.strokeStyle;
   // Рисуем окружность, которая благодаря масштабированию станет эллипсом
   ctx.arc(0, 0, b, 0, Math.PI * 2, true);
- 
-  // Восстанавливаем СК и масштаб
+  ctx.stroke();
   ctx.restore();
   ctx.closePath();
   ctx.fillStyle = color;   
-ctx.fill();
-    ctx.strokeStyle = this.strokeStyle;
+  ctx.fill();
+  ctx.strokeStyle = this.strokeStyle;
 }
