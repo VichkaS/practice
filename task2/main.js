@@ -1,0 +1,12 @@
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext('2d');
+home = new Home(100, 300, 250, 250);
+home.drawHome(ctx);
+glade = new Glade();
+glade.drawGlade(ctx, 200, 650, 400, 150, "#008000");
+glade.drawGlade(ctx, 900, 650, 400, 160, "#008000");
+glade.drawGlade(ctx, 600, 680, 400, 140, "#006400");
+cloud = new Cloud();
+cloud.drawCloud(ctx, 300, 100);
+cloud1 = new Cloud();
+cloud1.drawCloud(ctx, 500, 200);
