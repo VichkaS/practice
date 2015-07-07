@@ -6,6 +6,7 @@ var Cloud = function() {
 Cloud.prototype.drawCloud = function(ctx) {
     x_s = this.x_s;
     y_s = this.y_s;
+    
     this._drawCircle(x_s, y_s, 30);
     this._drawCircle(x_s + 30, y_s - 20, 30);
     this._drawCircle(x_s + 30, y_s + 20, 30);
