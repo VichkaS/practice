@@ -1,8 +1,11 @@
 var Cloud = function() {
-    
+    this.x_s = 0;
+    this.y_s = 0;
 }
 
-Cloud.prototype.drawCloud = function(ctx, x_s, y_s) {
+Cloud.prototype.drawCloud = function(ctx) {
+    x_s = this.x_s;
+    y_s = this.y_s;
     this._drawCircle(x_s, y_s, 30);
     this._drawCircle(x_s + 30, y_s - 20, 30);
     this._drawCircle(x_s + 30, y_s + 20, 30);
@@ -17,4 +20,8 @@ Cloud.prototype._drawCircle = function(x, y, r) {
 	ctx.closePath(); 
 	ctx.fillStyle = "#FFFFFF"; 
     ctx.fill();
+}
+
+Cloud.prototype._Random = function(min, max) {
+    return Math.random() * (max - min) + min;
 }
