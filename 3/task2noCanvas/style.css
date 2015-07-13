@@ -1,0 +1,16 @@
+#field {
+    width: 500px;
+    height: 500px;
+    background-color: #bbb;
+    position: relative;
+    overflow: hidden;
+}
+
+#square {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 40px;
+    height: 40px;
+    transition: all 1s;
+}
