@@ -14,6 +14,18 @@ context.drawImage(square, 0, 0);
 function Move() {
     x_e = document.getElementById( 'x' ).value;    
     y_e = document.getElementById( 'y' ).value;
+    if (x_e < 0) {
+        x_e = 0;
+    }
+    if (y_e < 0) {
+        y_e = 0;   
+    }
+    if (x_e > canvas.width - square.width) {
+        x_e = canvas.width - square.width
+    }
+    if (y_e > canvas.height - square.height) {
+        y_e = canvas.height - square.height
+    }
 }
 (function drawFrame () {
     window.requestAnimationFrame(drawFrame, canvas);
