@@ -22,7 +22,3 @@ Cloud.prototype._drawCircle = function(x, y, r) {
 	ctx.fillStyle = "#FFFFFF"; 
     ctx.fill();
 }
-
-Cloud.prototype._Random = function(min, max) {
-    return Math.random() * (max - min) + min;
-}
