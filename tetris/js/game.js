@@ -21,15 +21,15 @@ var shapes = [
       1 ]
 ];
 
-function newGame() {  
-    initializationBoard();
+function startGame() {  
+    initializeBoard();
     newShape();
     isEndGame = false;
     intervalDraw = setInterval( field, 30 );
     intervalGame = setInterval( tick, 500 );
 }
 
-function initializationBoard() {
+function initializeBoard() {
     for (var y = 0; y < ROWS; ++y) {
         board[y] = [];
         for (var x = 0; x < COLS; ++x) {
@@ -77,7 +77,7 @@ function tick() {
         if (isEndGame) {
             clearInterval(intervalGame);
             clearInterval(intervalDraw);
-            menu();
+            //menu();
             return false;
         }
         newShape();

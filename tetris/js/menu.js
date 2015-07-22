@@ -39,7 +39,7 @@ function menu() {
         var x = e.pageX - canvas.offsetLeft, 
             y = e.pageY - canvas.offsetTop;
         if (x > buttons[0].x && x < buttons[0].x+buttons[0].w && y > buttons[0].y && y < buttons[0].y+buttons[0].h) {
-            newGame();
+            startGame();
             canvas.onmouseup = null;
             clearInterval(intervalID);
         }
