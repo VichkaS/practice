@@ -3,7 +3,7 @@ var Block = function(x, y) {
     this.y = y;
 }
 
-Block.prototype.drawBlockTypeOne = function() {
+Block.prototype.drawBlockFirstType = function() {
     x = this.x;
     y = this.y;
     context.fillStyle = '#1e2fdf';
@@ -19,7 +19,7 @@ Block.prototype.drawBlockTypeOne = function() {
     context.strokeRect(BLOCK_W * x + INDENT, BLOCK_H * y, BLOCK_W - 1 , BLOCK_H - 1);
 }
 
-Block.prototype.drawBlockTypeTwo = function() {
+Block.prototype.drawBlockSecondType = function() {
     x = this.x;
     y = this.y;
     context.fillStyle = '#1e2fdf';
@@ -38,7 +38,7 @@ Block.prototype.drawBlockTypeTwo = function() {
     context.strokeRect(BLOCK_W * x + INDENT, BLOCK_H * y, BLOCK_W - 1 , BLOCK_H - 1);
 }
 
-Block.prototype.drawBlockTypeThree = function() {
+Block.prototype.drawBlockThirdType = function() {
     x = this.x;
     y = this.y;
     context.fillStyle = '#dd0d00';
@@ -56,7 +56,7 @@ Block.prototype.drawBlockTypeThree = function() {
     context.strokeRect(BLOCK_W * x + INDENT, BLOCK_H * y, BLOCK_W - 1 , BLOCK_H - 1); 
 }
 
-Block.prototype.drawBlockTypeFour = function() {
+Block.prototype.drawBlockFourthType = function() {
     x = this.x;
     y = this.y;
     context.fillStyle = '#1e2fdf';

@@ -7,9 +7,8 @@ var currentShape;
 var Board = function(canvas) {
     this.canvas = canvas;
     var context = canvas.getContext('2d');
-    currentX = 4,
-    currentY = 0;
     isEndGame = false;
+    tetromino = new Tetromino();
     var board = [];
 }
 
@@ -18,25 +17,26 @@ Board.prototype.random = function() {
     console.log(id);
     switch (id){
         case 1:
-            T = new TTetromino();
+            T = new TTetromino(4, 0);
             return T;
         case 2:
-            J = new JTetromino();
+            J = new JTetromino(4, 0);
             return J;
         case 3:
-            Z = new ZTetromino();
+            Z = new ZTetromino(4, 0);
             return Z;
         case 4:
-            O = new OTetromino();
+            O = new OTetromino(4, 0);
             return O;
         case 5:
-            S = new STetromino();
+            S = new STetromino(4, 0);
             return S;
         case 6:
-            I = new ITetromino();
+            I = new ITetromino(3, 0);
+            return I;
             return I;
         case 7:
-            L = new LTetromino();
+            L = new LTetromino(4, 0);
             return L;
     } 
 }
@@ -51,14 +51,13 @@ Board.prototype.intervalStop = function(T) {
     clearInterval(this.intervalGame);
 }
 
-Board.prototype.startG = function() {
-    T = board.random();
+Board.prototype.randomTetromino = function() {
+    tetromino = board.random();
 }
 
 Board.prototype.drawBoard = function() {   
     this._drawGameField();
-    //moving shape
-    T.draw(); 
+    tetromino.draw();
 };
 
 Board.prototype.initializeBoard = function() {
@@ -79,23 +78,22 @@ Board.prototype._drawGameField = function() {
         for (var y = 0; y < ROWS; ++y) {
             if (board[y][x]) {
                 var type = board[y][x];
-                console.log(type);
                 switch (type){
                     case 1:
                         var block = new Block(x, y);
-                        block.drawBlockTypeOne();
+                        block.drawBlockFirstType();
                         break;
                     case 2:
                         var block = new Block(x, y);
-                        block.drawBlockTypeTwo();
+                        block.drawBlockSecondType();
                         break;
                     case 3:
                         var block = new Block(x, y);
-                        block.drawBlockTypeThree();
+                        block.drawBlockThirdType();
                         break;
                     case 4:
                         var block = new Block(x, y);
-                        block.drawBlockTypeFour();
+                        block.drawBlockFourthType();
                         break;
                 } 
             }
@@ -105,7 +103,8 @@ Board.prototype._drawGameField = function() {
 
 Board.prototype.tick = function() {
     if (this._checkOffset(1, 0, currentShape)) {
-        ++currentY;
+        Y = tetromino.getY();
+        tetromino.setY(Y +1);
     }
     else {
         this._fixShape();
@@ -114,25 +113,27 @@ Board.prototype.tick = function() {
             return false;
         }
         //newShape();
-        T = board.random();
-        currentY = 0;
-        currentX = 4;
+        this.randomTetromino();
     }
 };
 
 Board.prototype._fixShape = function() {
+    Y = tetromino.getY();
+    X = tetromino.getX();
     for (var y = 0; y < 4; ++y) {
         for (var x = 0; x < 4; ++x) {
             if (currentShape[y][x]) {
-                board[y + currentY][x + currentX] = currentShape[y][x];
+                board[y + Y][x + X] = currentShape[y][x];
             }
         }
     }
 };
 
 Board.prototype._checkOffset = function(offsetY, offsetX, currentShape) {
-    offsetX = currentX;
-    offsetY = currentY + offsetY;
+    Y = tetromino.getY();
+    X = tetromino.getX();
+    offsetX = X;
+    offsetY = Y + offsetY;
     newCurrent = currentShape;
 
     for (var y = 0; y < 4; ++y) {

@@ -8,7 +8,6 @@ var GameScreen = function(game) {
 GameScreen.prototype.show = function() {
     board = new Board(canvas);
     board.initializeBoard();
-    board.startG();
-    //currentShape = T.createTetromino();
+    board.randomTetromino();
     board.interval();
 }
