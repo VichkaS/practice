@@ -1,49 +1,52 @@
-var COLS = 10, ROWS = 20;
-var WIDTH_FIELD = 300, HEIGHT_FIELD = 600;
-var BLOCK_W = WIDTH_FIELD / COLS, BLOCK_H = HEIGHT_FIELD / ROWS;
-var INDENT = (canvas.width - WIDTH_FIELD) / 2;
-
-var currentShape;
 var Board = function(canvas) {
     this.canvas = canvas;
-    var context = canvas.getContext('2d');
-    isEndGame = false;
-    tetromino = new Tetromino();
-    var board = [];
+    this.context = this.canvas.getContext('2d');
+    this.isEndGame = false;
+    this.tetromino = new Tetromino();
+    this.board = [];
 }
+
+Board.COLS = 10;
+Board.ROWS = 20;
+Board.WIDTH_FIELD = 301;
+Board.HEIGHT_FIELD = 600;
+
+Board.prototype._getIndentForFieldLeft = function() { 
+    return (this.canvas.width - Board.WIDTH_FIELD) / 2;
+};
 
 Board.prototype.random = function() {
     var id = Math.floor(Math.random() * (8 - 1) + 1);
     console.log(id);
     switch (id){
         case 1:
-            T = new TTetromino(4, 0);
-            return T;
+            tetromino = new TTetromino(4, 0);
+            break;
         case 2:
-            J = new JTetromino(4, 0);
-            return J;
+            tetromino = new JTetromino(4, 0);
+            break;
         case 3:
-            Z = new ZTetromino(4, 0);
-            return Z;
+            tetromino = new ZTetromino(4, 0);
+            break;
         case 4:
-            O = new OTetromino(4, 0);
-            return O;
+            tetromino = new OTetromino(4, 0);
+            break;
         case 5:
-            S = new STetromino(4, 0);
-            return S;
+            tetromino = new STetromino(4, 0);
+            break;
         case 6:
-            I = new ITetromino(3, 0);
-            return I;
-            return I;
+            tetromino = new ITetromino(3, 0);
+            break;
         case 7:
-            L = new LTetromino(4, 0);
-            return L;
-    } 
+            tetromino = new LTetromino(4, 0);
+            break;
+    }
+    return tetromino;
 }
 
 Board.prototype.interval = function() {
     this.intervalDraw = setInterval(this.drawBoard.bind(this), 30);
-    this.intervalGame = setInterval(this.tick.bind(this), 500);
+    this.intervalGame = setInterval(this._tick.bind(this), 500);
 }
 
 Board.prototype.intervalStop = function(T) {
@@ -53,6 +56,7 @@ Board.prototype.intervalStop = function(T) {
 
 Board.prototype.randomTetromino = function() {
     tetromino = board.random();
+    currentShape = tetromino.currentShape;
 }
 
 Board.prototype.drawBoard = function() {   
@@ -61,37 +65,38 @@ Board.prototype.drawBoard = function() {
 };
 
 Board.prototype.initializeBoard = function() {
-    for (var y = 0; y < ROWS; ++y) {
+    for (var y = 0; y < Board.ROWS; ++y) {
         board[y] = [];
-        for (var x = 0; x < COLS; ++x) {
+        for (var x = 0; x < Board.COLS; ++x) {
             board[y][x] = 0;
         }
     }
 };
 
 Board.prototype._drawGameField = function() {
+    indent = this._getIndentForFieldLeft();
     context.fillStyle = "#000";
-    context.fillRect(INDENT, 0, WIDTH_FIELD, HEIGHT_FIELD);
+    context.fillRect(indent, 0, Board.WIDTH_FIELD, Board.HEIGHT_FIELD);
     
     context.strokeStyle = 'black';
-    for (var x = 0; x < COLS; ++x) {
-        for (var y = 0; y < ROWS; ++y) {
+    for (var x = 0; x < Board.COLS; ++x) {
+        for (var y = 0; y < Board.ROWS; ++y) {
             if (board[y][x]) {
                 var type = board[y][x];
                 switch (type){
-                    case 1:
+                    case Block.TYPES.BLUE_SQUARE_AND_SMALL_WHITE_SQUARE:
                         var block = new Block(x, y);
                         block.drawBlockFirstType();
                         break;
-                    case 2:
+                    case Block.TYPES.BLUE_SQUARE:
                         var block = new Block(x, y);
                         block.drawBlockSecondType();
                         break;
-                    case 3:
+                    case Block.TYPES.RED_SQUARE:
                         var block = new Block(x, y);
                         block.drawBlockThirdType();
                         break;
-                    case 4:
+                    case Block.TYPES.BLUE_SQUARE_AND_BIG_WHITE_SQUARE:
                         var block = new Block(x, y);
                         block.drawBlockFourthType();
                         break;
@@ -101,18 +106,17 @@ Board.prototype._drawGameField = function() {
     }
 };
 
-Board.prototype.tick = function() {
+Board.prototype._tick = function() {
     if (this._checkOffset(1, 0, currentShape)) {
         Y = tetromino.getY();
-        tetromino.setY(Y +1);
+        tetromino.setY(Y + 1);
     }
     else {
         this._fixShape();
-        if (isEndGame) {
+        if (this.isEndGame) {
             this.intervalStop();
             return false;
         }
-        //newShape();
         this.randomTetromino();
     }
 };
@@ -132,16 +136,17 @@ Board.prototype._fixShape = function() {
 Board.prototype._checkOffset = function(offsetY, offsetX, currentShape) {
     Y = tetromino.getY();
     X = tetromino.getX();
-    offsetX = X;
+    offsetX = X + offsetX;
     offsetY = Y + offsetY;
     newCurrent = currentShape;
 
     for (var y = 0; y < 4; ++y) {
         for (var x = 0; x < 4; ++x) {
             if (newCurrent[y][x]) {
-                if ( typeof board[y + offsetY] == 'undefined' || board[y + offsetY][x + offsetX] || y + offsetY >= ROWS ) {
+                if ( typeof board[y + offsetY] == 'undefined' || board[y + offsetY][x + offsetX] || y + offsetY >= Board.ROWS 
+                    || x + offsetX >= Board.COLS || x + offsetX < 0) {
                     if (offsetY == 1) {
-                        isEndGame = true;
+                        this.isEndGame = true;
                     }
                     return false;
                 }
@@ -149,4 +154,25 @@ Board.prototype._checkOffset = function(offsetY, offsetX, currentShape) {
         }
     }
     return true;
+};
+
+Board.prototype.keyPress = function(key) {
+    switch(key) {
+        case 'left':
+            if (this._checkOffset(0, -1, currentShape))
+            {
+                X = tetromino.getX();
+                tetromino.setX(X - 1);
+            };
+            break;
+        case 'right':
+            if (this._checkOffset(0, +1, currentShape))
+            {
+                X = tetromino.getX();
+                tetromino.setX(X + 1);
+            };
+            break;
+            
+            
+    }
 };

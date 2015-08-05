@@ -3,9 +3,26 @@ var Block = function(x, y) {
     this.y = y;
 }
 
+Block.BLOCK_W = 30;
+Block.BLOCK_H = 30;
+Block.INDENT = 250;
+
+
+Block.TYPES = {
+    BLUE_SQUARE_AND_SMALL_WHITE_SQUARE: 1,
+    BLUE_SQUARE: 2,
+    RED_SQUARE: 3,
+    BLUE_SQUARE_AND_BIG_WHITE_SQUARE: 4,
+};
+
+
 Block.prototype.drawBlockFirstType = function() {
     x = this.x;
     y = this.y;
+    BLOCK_W = Block.BLOCK_W;
+    BLOCK_H = Block.BLOCK_H;
+    INDENT = Block.INDENT;
+    
     context.fillStyle = '#1e2fdf';
     context.fillRect(BLOCK_W * x + INDENT, BLOCK_H * y, BLOCK_W - 1 , BLOCK_H - 1);
     context.strokeRect(BLOCK_W * x + INDENT, BLOCK_H * y, BLOCK_W - 1 , BLOCK_H - 1);
@@ -22,6 +39,10 @@ Block.prototype.drawBlockFirstType = function() {
 Block.prototype.drawBlockSecondType = function() {
     x = this.x;
     y = this.y;
+    BLOCK_W = Block.BLOCK_W;
+    BLOCK_H = Block.BLOCK_H;
+    INDENT = Block.INDENT;
+    
     context.fillStyle = '#1e2fdf';
     context.fillRect(BLOCK_W * x + INDENT, BLOCK_H * y, BLOCK_W - 1 , BLOCK_H - 1);
     context.strokeRect(BLOCK_W * x + INDENT, BLOCK_H * y, BLOCK_W - 1 , BLOCK_H - 1);
@@ -41,6 +62,10 @@ Block.prototype.drawBlockSecondType = function() {
 Block.prototype.drawBlockThirdType = function() {
     x = this.x;
     y = this.y;
+    BLOCK_W = Block.BLOCK_W;
+    BLOCK_H = Block.BLOCK_H;
+    INDENT = Block.INDENT;
+    
     context.fillStyle = '#dd0d00';
     context.fillRect(BLOCK_W * x + INDENT, BLOCK_H * y, BLOCK_W - 1 , BLOCK_H - 1);
     context.strokeRect(BLOCK_W * x + INDENT, BLOCK_H * y, BLOCK_W - 1 , BLOCK_H - 1);
@@ -59,6 +84,10 @@ Block.prototype.drawBlockThirdType = function() {
 Block.prototype.drawBlockFourthType = function() {
     x = this.x;
     y = this.y;
+    BLOCK_W = Block.BLOCK_W;
+    BLOCK_H = Block.BLOCK_H;
+    INDENT = Block.INDENT;
+    
     context.fillStyle = '#1e2fdf';
     context.fillRect(BLOCK_W * x + INDENT, BLOCK_H * y, BLOCK_W - 1 , BLOCK_H - 1);
     context.strokeRect(BLOCK_W * x + INDENT, BLOCK_H * y, BLOCK_W - 1 , BLOCK_H - 1);
