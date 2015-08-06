@@ -46,6 +46,7 @@ function initializeButton(MenuScreen, y, w, h, image) {
 };
 
 MenuScreen.prototype._drawMenu = function(buttons) {
+    context = this._context;
     var buttonStart = new Image();
     buttonStart.src = 'button_start.png';
     button = initializeButton(this, 100, 188, 56, buttonStart);    
@@ -55,7 +56,7 @@ MenuScreen.prototype._drawMenu = function(buttons) {
     buttonRecords.src = 'button_records.png';
     button = initializeButton(this, 200, 188, 56, buttonRecords);  
     buttons.push(button);
-    context = this._context;
+    
     
     window.onload = function() {
         drawButton(context, buttons);

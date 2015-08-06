@@ -5,14 +5,27 @@ var Tetromino = function(){
 
 Tetromino.prototype.draw = function() {
     context.strokeStyle = 'black';
-    for (var y = 0; y < 4; ++y) {
-        for (var x = 0; x < 4; ++x) {
+    sideLength = currentShape.length;    
+    for (var y = 0; y < sideLength; ++y) {
+        for (var x = 0; x < sideLength; ++x) {
             if (currentShape[y][x]) {               
                 this.drawBlok(this.x + x, this.y + y);
             }
         }
     }  
 };
+
+Tetromino.prototype.rotate = function(current) {
+    var newCurrent = [];
+    sideLength = current.length;
+    for (var y = 0; y < sideLength; ++y) {
+        newCurrent[y] = [];
+        for (var x = 0; x < sideLength; ++x) {
+            newCurrent[y][x] = current[(sideLength - 1) - x][y];                     
+        }
+    }
+    return newCurrent;
+}
 
 Tetromino.prototype.getY = function() {
     return this.y;
@@ -29,14 +42,14 @@ Tetromino.prototype.getX = function() {
 Tetromino.prototype.setX = function(newX) {
     this.x = newX;
 }
-    
+
 var TTetromino = function(x, y){
     this.x = x;
     this.y = y;
-    this.currentShape = [[0, 1, 0, 0],
-                         [1, 1, 1, 0],
-                         [0, 0, 0, 0],
-                         [0, 0, 0, 0]];
+    this.currentShape = [[0, 1, 0],
+                         [1, 1, 1],
+                         [0, 0, 0]];
+    this.sideLength = 3;
 }; 
 
 TTetromino.prototype = Object.create(Tetromino.prototype);
@@ -49,10 +62,10 @@ TTetromino.prototype.drawBlok = function(x, y) {
 var JTetromino = function(x, y){
     this.x = x;
     this.y = y;
-    this.currentShape = [[2, 2, 2, 0],
-                         [0, 0, 2, 0],
-                         [0, 0, 0, 0],
-                         [0, 0, 0, 0]]; 
+    this.currentShape = [[2, 0, 0],
+                         [2, 2, 2],
+                         [0, 0, 0]];
+    this.sideLength = 3;
 }; 
 
 JTetromino.prototype = Object.create(Tetromino.prototype);
@@ -65,10 +78,10 @@ JTetromino.prototype.drawBlok = function(x, y) {
 var ZTetromino = function(x, y){
     this.x = x;
     this.y = y;
-    this.currentShape = [[3, 3, 0, 0],
-                         [0, 3, 3, 0],
-                         [0, 0, 0, 0],
-                         [0, 0, 0, 0]];
+    this.currentShape = [[3, 3, 0],
+                         [0, 3, 3],
+                         [0, 0, 0]];
+    this.sideLength = 3;
 }; 
 
 ZTetromino.prototype = Object.create(Tetromino.prototype);
@@ -81,10 +94,9 @@ ZTetromino.prototype.drawBlok = function(x, y) {
 var OTetromino = function(x, y){
     this.x = x;
     this.y = y;
-    this.currentShape = [[4, 4, 0, 0],
-                         [4, 4, 0, 0],
-                         [0, 0, 0, 0],
-                         [0, 0, 0, 0]];
+    this.currentShape = [[4, 4],
+                         [4, 4]];
+    this.sideLength = 2;
 }; 
 
 OTetromino.prototype = Object.create(Tetromino.prototype);
@@ -97,10 +109,10 @@ OTetromino.prototype.drawBlok = function(x, y) {
 var STetromino = function(x, y){
     this.x = x;
     this.y = y;
-    this.currentShape = [[0, 2, 2, 0],
-                         [2, 2, 0, 0],
-                         [0, 0, 0, 0],
-                         [0, 0, 0, 0]];
+    this.currentShape = [[0, 2, 2],
+                         [2, 2, 0],
+                         [0, 0, 0]];
+    this.sideLength = 3;
 }; 
 
 STetromino.prototype = Object.create(Tetromino.prototype);
@@ -113,10 +125,11 @@ STetromino.prototype.drawBlok = function(x, y) {
 var ITetromino = function(x, y){
     this.x = x;
     this.y = y;
-    this.currentShape = [[1, 1, 1, 1],
-                         [0, 0, 0, 0],
+    this.currentShape = [[0, 0, 0, 0],
+                         [1, 1, 1, 1],
                          [0, 0, 0, 0],
                          [0, 0, 0, 0]];
+    this.sideLength = 4;
 }; 
 
 ITetromino.prototype = Object.create(Tetromino.prototype);
@@ -129,10 +142,10 @@ ITetromino.prototype.drawBlok = function(x, y) {
 var LTetromino = function(x, y){
     this.x = x;
     this.y = y;
-    this.currentShape = [[3, 3, 3, 0],
-                         [3, 0, 0, 0],
-                         [0, 0, 0, 0],
-                         [0, 0, 0, 0]];
+    this.currentShape = [[0, 0, 3],
+                         [3, 3, 3],
+                         [0, 0, 0]];
+    this.sideLength = 3;
 }; 
 
 LTetromino.prototype = Object.create(Tetromino.prototype);
