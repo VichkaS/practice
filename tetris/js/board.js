@@ -35,33 +35,33 @@ Board.prototype.random = function() {
             tetromino = new STetromino(4, 0);
             break;
         case 6:
-            tetromino = new ITetromino(3, -1);
+            tetromino = new ITetromino(3, 0);
             break;
         case 7:
             tetromino = new LTetromino(4, 0);
             break;
-    }
+    };
     return tetromino;
-}
+};
 
 Board.prototype.interval = function() {
     this.intervalDraw = setInterval(this.drawBoard.bind(this), 30);
     this.intervalGame = setInterval(this._tick.bind(this), 500);
-}
+};
 
 Board.prototype.intervalStop = function(T) {
     clearInterval(this.intervalDraw);
     clearInterval(this.intervalGame);
-}
+};
 
 Board.prototype.randomTetromino = function() {
-    tetromino = board.random();
-    currentShape = tetromino.currentShape;
-}
+    this.tetromino = board.random();
+    currentTetromino = tetromino.form;
+};
 
 Board.prototype.drawBoard = function() {   
     this._drawGameField();
-    tetromino.draw();
+    this.tetromino.draw(currentTetromino);
 };
 
 Board.prototype.initializeBoard = function() {
@@ -107,7 +107,7 @@ Board.prototype._drawGameField = function() {
 };
 
 Board.prototype._tick = function() {
-    if (this._checkOffset(1, 0, currentShape)) {
+    if (this._checkOffset(1, 0, currentTetromino)) {
         Y = tetromino.getY();
         tetromino.setY(Y + 1);
     }
@@ -127,28 +127,29 @@ Board.prototype._fixShape = function() {
 
     for (var y = 0; y < tetromino.sideLength; ++y) {
         for (var x = 0; x < tetromino.sideLength; ++x) {
-            if (currentShape[y][x]) {
-                board[y + Y][x + X] = currentShape[y][x];
+            if (currentTetromino[y][x]) {
+                board[y + Y][x + X] = currentTetromino[y][x];
             }
         }
     }
 };
 
-Board.prototype._checkOffset = function(offsetY, offsetX, currentShape) {
+Board.prototype._checkOffset = function(offsetY, offsetX, currentTetromino) {
     Y = tetromino.getY();
     X = tetromino.getX();
     offsetX = X + offsetX;
     offsetY = Y + offsetY;
-    newCurrent = currentShape;
+    newCurrent = currentTetromino;
 
     for (var y = 0; y < tetromino.sideLength; ++y) {
         for (var x = 0; x < tetromino.sideLength; ++x) {
             if (newCurrent[y][x]) {
                 if ( typeof board[y + offsetY] == 'undefined' || typeof board[y + offsetY][x + offsetX] == 'undefined' 
-                    || board[y + offsetY][x + offsetX] || y + offsetY >= Board.ROWS + 2 
+                    || board[y + offsetY][x + offsetX] || y + offsetY >= Board.ROWS 
                     || x + offsetX >= Board.COLS || x + offsetX < 0) {
                     if (offsetY == 1) {
                         this.isEndGame = true;
+                        console.log('EndGame');
                     }
                     return false;
                 }
@@ -158,32 +159,32 @@ Board.prototype._checkOffset = function(offsetY, offsetX, currentShape) {
     return true;
 };
 
-Board.prototype.keyPress = function(key) {
+Board.prototype.action = function(key) {
     switch(key) {
         case 'left':
-            if (this._checkOffset(0, -1, currentShape))
+            if (this._checkOffset(0, -1, currentTetromino))
             {
                 X = tetromino.getX();
                 tetromino.setX(X - 1);
             };
             break;
         case 'right':
-            if (this._checkOffset(0, 1, currentShape))
+            if (this._checkOffset(0, 1, currentTetromino))
             {
                 X = tetromino.getX();
                 tetromino.setX(X + 1);
             };
             break;
         case 'down':
-            if (this._checkOffset(1, 0, currentShape)) {
+            if (this._checkOffset(1, 0, currentTetromino)) {
                 Y = tetromino.getY();
                 tetromino.setY(Y + 1);
             };
             break;
         case 'rotate':
-            var rotated = tetromino.rotate(currentShape);
-            if (this._checkOffset(0, 0, rotated)) {
-                currentShape = rotated;
+            var tempTetromino = tetromino.rotate(currentTetromino);
+            if (this._checkOffset(0, 0, tempTetromino)) {
+                currentTetromino = tempTetromino;
             };
             break;
     }

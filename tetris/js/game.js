@@ -9,15 +9,15 @@ GameScreen.prototype.show = function() {
     board.interval();
     
     document.body.onkeydown = function(e) {
-    var keys = {
-        37: 'left',
-        39: 'right',
-        40: 'down',
-        38: 'rotate'
+        var keys = {
+            37: 'left',
+            39: 'right',
+            40: 'down',
+            38: 'rotate'
+        };
+        if (typeof keys[e.keyCode] != 'undefined') {
+            board.action(keys[e.keyCode]);
+            board.drawBoard();
+        };
     };
-    if (typeof keys[e.keyCode] != 'undefined') {
-        board.keyPress(keys[e.keyCode]);
-        board.drawBoard();
-    }
 };
-}

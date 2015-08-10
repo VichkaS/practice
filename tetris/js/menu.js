@@ -56,8 +56,7 @@ MenuScreen.prototype._drawMenu = function(buttons) {
     buttonRecords.src = 'button_records.png';
     button = initializeButton(this, 200, 188, 56, buttonRecords);  
     buttons.push(button);
-    
-    
+       
     window.onload = function() {
         drawButton(context, buttons);
     }
