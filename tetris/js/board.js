@@ -3,7 +3,10 @@ var Board = function(canvas) {
     this.context = this.canvas.getContext('2d');
     this.isEndGame = false;
     this.tetromino = new Tetromino();
+    this.nextTetromino = this.random();
     this.board = [];
+    this.countLines = 0;
+    this.score = 0;
 }
 
 Board.COLS = 10;
@@ -55,13 +58,27 @@ Board.prototype.intervalStop = function(T) {
 };
 
 Board.prototype.randomTetromino = function() {
-    this.tetromino = board.random();
-    currentTetromino = tetromino.form;
+    this.tetromino = this.nextTetromino;
+    this.nextTetromino = this.random();
+    currentTetromino = this.tetromino.form;
 };
 
 Board.prototype.drawBoard = function() {   
     this._drawGameField();
+    this._drawNextTetrominoAndGameStatistics();
     this.tetromino.draw(currentTetromino);
+};
+
+Board.prototype._drawNextTetrominoAndGameStatistics = function() {
+    context.fillStyle = "#000";
+    context.fillRect(560, 0, 150, Board.HEIGHT_FIELD);
+    this.nextTetromino.draw(this.nextTetromino.form, 11, 1);
+    context.font = "20px Courier New";
+    context.fillStyle = '#fff';
+    context.fillText("LINES:", 570, 200);
+    context.fillText(this.countLines, 650, 200);
+    context.fillText("SCORE:", 570, 230);
+    context.fillText(this.score, 650, 230);
 };
 
 Board.prototype.initializeBoard = function() {
@@ -126,8 +143,8 @@ Board.prototype._fixShape = function() {
     Y = this.tetromino.getY();
     X = this.tetromino.getX();
 
-    for (var y = 0; y < tetromino.sideLength; ++y) {
-        for (var x = 0; x < tetromino.sideLength; ++x) {
+    for (var y = 0; y < this.tetromino.sideLength; ++y) {
+        for (var x = 0; x < this.tetromino.sideLength; ++x) {
             if (currentTetromino[y][x]) {
                 this.board[y + Y][x + X] = currentTetromino[y][x];
             }
@@ -161,6 +178,7 @@ Board.prototype._checkOffset = function(offsetY, offsetX, currentTetromino) {
 };
 
 Board.prototype._clearLine = function() {
+    var cLine = 0;
     for (var line = Board.ROWS - 1; line >= 0; --line) {
         var isLine = true;
         for (var column = 0; column < Board.COLS; ++column) {
@@ -170,6 +188,8 @@ Board.prototype._clearLine = function() {
             }
         }
         if(isLine) {
+            cLine++;
+            console.log(this.countLines);
             for (var delLine = line; delLine > 0; --delLine) {
                 for (var column = 0; column < Board.COLS; ++column) {
                     this.board[delLine][column] = this.board[delLine - 1][column];
@@ -179,6 +199,24 @@ Board.prototype._clearLine = function() {
             ++line;
         }
     }
+    switch(cLine) {
+        case 1:
+            this.score += 100;
+            this.countLines += cLine;
+            break;
+        case 2: 
+            this.score += 300;
+            this.countLines += cLine;
+            break;
+        case 3:
+            this.score += 700;
+            this.countLines += cLine;
+            break;
+        case 4:
+            this.score += 1500;
+            this.countLines += cLine;
+            break;
+    }   
 };
 
 Board.prototype.action = function(key) {
