@@ -13,7 +13,9 @@ GameScreen.prototype.show = function() {
             37: 'left',
             39: 'right',
             40: 'down',
-            38: 'rotate'
+            38: 'rotate',
+            27: 'menu',
+            32: 'pause'
         };
         if (typeof keys[e.keyCode] != 'undefined') {
             board.action(keys[e.keyCode]);

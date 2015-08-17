@@ -7,6 +7,7 @@ var Board = function(canvas) {
     this.board = [];
     this.countLines = 0;
     this.score = 0;
+    this.isPause = true;
 }
 
 Board.COLS = 10;
@@ -21,27 +22,27 @@ Board.prototype._getIndentForFieldLeft = function() {
 Board.prototype.random = function() {
     var id = Math.floor(Math.random() * (8 - 1) + 1);
     console.log(id);
-    switch (id){
+    switch (id) {
         case 1:
-            tetromino = new TTetromino(4, 0);
+            tetromino = new TTetromino(4, -1);
             break;
         case 2:
-            tetromino = new JTetromino(4, 0);
+            tetromino = new JTetromino(4, -1);
             break;
         case 3:
-            tetromino = new ZTetromino(4, 0);
+            tetromino = new ZTetromino(4, -1);
             break;
         case 4:
-            tetromino = new OTetromino(4, 0);
+            tetromino = new OTetromino(4, -1);
             break;
         case 5:
-            tetromino = new STetromino(4, 0);
+            tetromino = new STetromino(4, -1);
             break;
         case 6:
-            tetromino = new ITetromino(3, 0);
+            tetromino = new ITetromino(3, -1);
             break;
         case 7:
-            tetromino = new LTetromino(4, 0);
+            tetromino = new LTetromino(4, -1);
             break;
     };
     return tetromino;
@@ -52,9 +53,10 @@ Board.prototype.interval = function() {
     this.intervalGame = setInterval(this._tick.bind(this), 500);
 };
 
-Board.prototype.intervalStop = function(T) {
+Board.prototype.intervalStop = function() {
     clearInterval(this.intervalDraw);
     clearInterval(this.intervalGame);
+    clearInterval(this.intervalField);
 };
 
 Board.prototype.randomTetromino = function() {
@@ -90,12 +92,16 @@ Board.prototype.initializeBoard = function() {
     }
 };
 
-Board.prototype._drawGameField = function() {
+Board.prototype._drawField = function() {
     indent = this._getIndentForFieldLeft();
-    context.fillStyle = "#000";
-    context.fillRect(indent, 0, Board.WIDTH_FIELD, Board.HEIGHT_FIELD);
-    
-    context.strokeStyle = 'black';
+    this.context.fillStyle = 'black';
+    this.context.fillRect(indent, 0, Board.WIDTH_FIELD, Board.HEIGHT_FIELD);
+    //context.strokeStyle = 'black';
+};
+
+Board.prototype._drawGameField = function() {
+    this._drawField();
+
     for (var x = 0; x < Board.COLS; ++x) {
         for (var y = 0; y < Board.ROWS; ++y) {
             if (this.board[y][x]) {
@@ -145,7 +151,7 @@ Board.prototype._fixShape = function() {
 
     for (var y = 0; y < this.tetromino.sideLength; ++y) {
         for (var x = 0; x < this.tetromino.sideLength; ++x) {
-            if (currentTetromino[y][x]) {
+            if ((!this.isEndGame) && currentTetromino[y][x]) {
                 this.board[y + Y][x + X] = currentTetromino[y][x];
             }
         }
@@ -165,7 +171,7 @@ Board.prototype._checkOffset = function(offsetY, offsetX, currentTetromino) {
                 if ( typeof this.board[y + offsetY] == 'undefined' || typeof this.board[y + offsetY][x + offsetX] == 'undefined' 
                     || this.board[y + offsetY][x + offsetX] || y + offsetY >= Board.ROWS 
                     || x + offsetX >= Board.COLS || x + offsetX < 0) {
-                    if (offsetY == 1) {
+                    if (offsetY == 0) {
                         this.isEndGame = true;
                         console.log('EndGame');
                     }
@@ -219,6 +225,14 @@ Board.prototype._clearLine = function() {
     }   
 };
 
+Board.prototype._printPause = function() {
+    this._drawField();
+    indent = this._getIndentForFieldLeft();
+    context.font = "100px Courier New";
+    context.fillStyle = "#fff";
+    context.fillText("PAUSE", indent, 300)
+}
+
 Board.prototype.action = function(key) {
     switch(key) {
         case 'left':
@@ -247,5 +261,21 @@ Board.prototype.action = function(key) {
                 currentTetromino = tempTetromino;
             };
             break;
+        case 'menu':
+            this.intervalStop();
+            game.start();
+            break;
+        case 'pause':
+            if (this.isPause && !(this.isEndGame)) {
+                this.intervalStop();
+                this.intervalField = setInterval(this._printPause.bind(this), 30);
+                this.isPause = false;
+            }
+            else {
+                this.interval();
+                clearInterval(this.intervalField);
+                this.isPause = true;
+            }
+            break;      
     }
 };

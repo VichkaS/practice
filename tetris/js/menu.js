@@ -1,7 +1,7 @@
 var MenuScreen = function(game) {
     this._canvas = game.getCanvas();
     this._context = this._canvas.getContext('2d');
-    this._buttons = [];    
+    this._buttons = []; 
 };
 
 MenuScreen.prototype._getIndentForButtonLeft = function() {
@@ -11,6 +11,7 @@ MenuScreen.prototype._getIndentForButtonLeft = function() {
 MenuScreen.prototype.show = function() {
     canvas = this._canvas;
     buttons = this._buttons;
+    interval_ = this.intervalID;
     this._drawMenu(buttons);
     canvas.onmouseup = function(e) {
         var x = e.pageX - canvas.offsetLeft, 
@@ -33,7 +34,9 @@ function Button(x, y, w, h, image) {
     this.image = image;
 };
 
-function drawButton(context, buttons) {
+MenuScreen.prototype._drawButton = function() {
+    var context = this._context,
+        buttons = this._buttons;
     for (var ib = 0; ib < buttons.length; ib++) { 
         context.drawImage(buttons[ib].image, buttons[ib].x, buttons[ib].y);
     }
@@ -56,8 +59,5 @@ MenuScreen.prototype._drawMenu = function(buttons) {
     buttonRecords.src = 'button_records.png';
     button = initializeButton(this, 200, 188, 56, buttonRecords);  
     buttons.push(button);
-       
-    window.onload = function() {
-        drawButton(context, buttons);
-    }
+    setTimeout(this._drawButton.bind(this), 10);
 };
