@@ -278,6 +278,7 @@ Board.prototype.action = function(key) {
         case 'menu':
             this.intervalStop();
             this._drawField();
+            this.isEndGame = true;
             game.start();
             break;
         case 'pause':
