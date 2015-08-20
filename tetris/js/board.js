@@ -96,7 +96,6 @@ Board.prototype._drawField = function() {
     indent = this._getIndentForFieldLeft();
     this.context.fillStyle = 'black';
     this.context.fillRect(indent, 0, Board.WIDTH_FIELD, Board.HEIGHT_FIELD);
-    //context.strokeStyle = 'black';
 };
 
 Board.prototype._drawGameField = function() {
@@ -172,8 +171,7 @@ Board.prototype._checkOffset = function(offsetY, offsetX, currentTetromino) {
                     || this.board[y + offsetY][x + offsetX] || y + offsetY >= Board.ROWS 
                     || x + offsetX >= Board.COLS || x + offsetX < 0) {
                     if (offsetY == 0) {
-                        this.isEndGame = true;
-                        console.log('EndGame');
+                        this._endGame();
                     }
                     return false;
                 }
@@ -181,6 +179,18 @@ Board.prototype._checkOffset = function(offsetY, offsetX, currentTetromino) {
         }
     }
     return true;
+};
+
+Board.prototype._endGame = function() {
+    this.isEndGame = true;
+    console.log('EndGame');
+    this._drawField();
+    indent = this._getIndentForFieldLeft();
+    context.font = "100px Courier New";
+    context.fillStyle = "#fff";
+    context.fillText("GAME", indent + 20, 250);
+    context.fillText("OVER", indent + 20, 350);
+    
 };
 
 Board.prototype._clearLine = function() {
@@ -240,6 +250,7 @@ Board.prototype.action = function(key) {
             {
                 X = this.tetromino.getX();
                 this.tetromino.setX(X - 1);
+                this.drawBoard();
             };
             break;
         case 'right':
@@ -247,35 +258,41 @@ Board.prototype.action = function(key) {
             {
                 X = this.tetromino.getX();
                 this.tetromino.setX(X + 1);
+                this.drawBoard();
             };
             break;
         case 'down':
             if (this._checkOffset(1, 0, currentTetromino)) {
                 Y = this.tetromino.getY();
                 this.tetromino.setY(Y + 1);
+                this.drawBoard();
             };
             break;
         case 'rotate':
             var tempTetromino = tetromino.rotate(currentTetromino);
             if (this._checkOffset(0, 0, tempTetromino)) {
                 currentTetromino = tempTetromino;
+                this.drawBoard();
             };
             break;
         case 'menu':
             this.intervalStop();
+            this._drawField();
             game.start();
             break;
         case 'pause':
-            if (this.isPause && !(this.isEndGame)) {
-                this.intervalStop();
-                this.intervalField = setInterval(this._printPause.bind(this), 30);
-                this.isPause = false;
+            if (!this.isEndGame) {
+                console.log(!this.isEndGame);
+                if (this.isPause) {
+                    this.intervalStop();
+                    this.intervalField = setInterval(this._printPause.bind(this), 30);
+                    this.isPause = false;
+                } else {
+                    this.interval();
+                    clearInterval(this.intervalField);
+                    this.isPause = true;
+                };
             }
-            else {
-                this.interval();
-                clearInterval(this.intervalField);
-                this.isPause = true;
-            }
-            break;      
-    }
+            break;
+    };
 };

@@ -19,7 +19,6 @@ GameScreen.prototype.show = function() {
         };
         if (typeof keys[e.keyCode] != 'undefined') {
             board.action(keys[e.keyCode]);
-            board.drawBoard();
         };
     };
 };

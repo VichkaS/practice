@@ -59,5 +59,5 @@ MenuScreen.prototype._drawMenu = function(buttons) {
     buttonRecords.src = 'button_records.png';
     button = initializeButton(this, 200, 188, 56, buttonRecords);  
     buttons.push(button);
-    setTimeout(this._drawButton.bind(this), 10);
+    setTimeout(this._drawButton.bind(this), 100);
 };
