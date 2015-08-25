@@ -5,8 +5,8 @@ var Board = function(canvas) {
     this.tetromino = new Tetromino();
     this.nextTetromino = this.random();
     this.board = [];
-    this.countLines = 0;
-    this.score = 0;
+    this.countLines = 000;
+    this.score = 000;
     this.isPause = true;
 }
 
@@ -72,15 +72,30 @@ Board.prototype.drawBoard = function() {
 };
 
 Board.prototype._drawNextTetrominoAndGameStatistics = function() {
-    context.fillStyle = "#000";
-    context.fillRect(560, 0, 150, Board.HEIGHT_FIELD);
-    this.nextTetromino.draw(this.nextTetromino.form, 11, 1);
-    context.font = "20px Courier New";
-    context.fillStyle = '#fff';
-    context.fillText("LINES:", 570, 200);
-    context.fillText(this.countLines, 650, 200);
-    context.fillText("SCORE:", 570, 230);
-    context.fillText(this.score, 650, 230);
+    this.context.fillStyle = "#000";
+    this.context.fillRect(610, 70, 140, 100);
+    if (this.nextTetromino.sideLength == 4) {
+        this.nextTetromino.draw(this.nextTetromino.form, 12.5, 3);
+    }
+    else if (this.nextTetromino.sideLength == 2) {
+        this.nextTetromino.draw(this.nextTetromino.form, 13.5, 3);    
+    }
+    else {
+        this.nextTetromino.draw(this.nextTetromino.form, 13, 3);
+    }
+    
+    this.context.font = "bold 48px Arial";
+    //SCORE
+    this.context.fillStyle = '#000';
+    this.context.fillRect(620, 335, 100, 40);
+    this.context.fillStyle = '#fff';
+    this.context.fillText(this.score, 620, 375);
+    
+    //LINES
+    this.context.fillStyle = '#000';
+    this.context.fillRect(620, 410, 100, 40);
+    this.context.fillStyle = '#fff';
+    this.context.fillText(this.countLines, 620, 450);
 };
 
 Board.prototype.initializeBoard = function() {
@@ -170,8 +185,9 @@ Board.prototype._checkOffset = function(offsetY, offsetX, currentTetromino) {
                 if ( typeof this.board[y + offsetY] == 'undefined' || typeof this.board[y + offsetY][x + offsetX] == 'undefined' 
                     || this.board[y + offsetY][x + offsetX] || y + offsetY >= Board.ROWS 
                     || x + offsetX >= Board.COLS || x + offsetX < 0) {
-                    if (offsetY == 0) {
+                    if (offsetY == 0 && (offsetX == 4 || offsetX == 3)) {
                         this._endGame();
+                        this._saveResult();
                     }
                     return false;
                 }
@@ -181,15 +197,22 @@ Board.prototype._checkOffset = function(offsetY, offsetX, currentTetromino) {
     return true;
 };
 
+Board.prototype._saveResult = function() {
+    var playerName = prompt('Enter name', 'Name');
+    if (playerName != null && this.countLines != 0) {
+        localStorage.setItem(playerName, this.score); 
+    };
+};
+
 Board.prototype._endGame = function() {
     this.isEndGame = true;
     console.log('EndGame');
     this._drawField();
     indent = this._getIndentForFieldLeft();
-    context.font = "100px Courier New";
-    context.fillStyle = "#fff";
-    context.fillText("GAME", indent + 20, 250);
-    context.fillText("OVER", indent + 20, 350);
+    this.context.font = "100px Courier New";
+    this.context.fillStyle = "#fff";
+    this.context.fillText("GAME", indent + 20, 250);
+    this.context.fillText("OVER", indent + 20, 350);
     
 };
 
@@ -238,10 +261,10 @@ Board.prototype._clearLine = function() {
 Board.prototype._printPause = function() {
     this._drawField();
     indent = this._getIndentForFieldLeft();
-    context.font = "100px Courier New";
-    context.fillStyle = "#fff";
-    context.fillText("PAUSE", indent, 300)
-}
+    this.context.font = "100px Courier New";
+    this.context.fillStyle = "#fff";
+    this.context.fillText("PAUSE", indent, 300)
+};
 
 Board.prototype.action = function(key) {
     switch(key) {

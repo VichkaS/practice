@@ -21,7 +21,8 @@ MenuScreen.prototype.show = function() {
             canvas.onmouseup = null;
         }
         if (x > buttons[1].x && x < buttons[1].x + buttons[1].w && y > buttons[1].y && y < buttons[1].y + buttons[1].h) {
-            alert('Не доступно');
+            game.records();
+            canvas.onmouseup = null;
         }
     }
 };
@@ -49,7 +50,7 @@ function initializeButton(MenuScreen, y, w, h, image) {
 };
 
 MenuScreen.prototype._drawMenu = function(buttons) {
-    context = this._context;
+    
     var buttonStart = new Image();
     buttonStart.src = 'button_start.png';
     button = initializeButton(this, 100, 188, 56, buttonStart);    

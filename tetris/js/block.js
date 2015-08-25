@@ -1,4 +1,6 @@
 var Block = function(x, y) {
+    this.canvas = game.getCanvas();
+    this.context = this.canvas.getContext('2d');
     this.x = x;
     this.y = y;
 }
@@ -22,6 +24,7 @@ Block.prototype.drawBlockFirstType = function() {
     BLOCK_W = Block.BLOCK_W;
     BLOCK_H = Block.BLOCK_H;
     INDENT = Block.INDENT;
+    var context = this.context;
     
     context.fillStyle = '#1e2fdf';
     context.fillRect(BLOCK_W * x + INDENT, BLOCK_H * y, BLOCK_W - 1 , BLOCK_H - 1);
@@ -42,6 +45,7 @@ Block.prototype.drawBlockSecondType = function() {
     BLOCK_W = Block.BLOCK_W;
     BLOCK_H = Block.BLOCK_H;
     INDENT = Block.INDENT;
+    var context = this.context;
     
     context.fillStyle = '#1e2fdf';
     context.fillRect(BLOCK_W * x + INDENT, BLOCK_H * y, BLOCK_W - 1 , BLOCK_H - 1);
@@ -65,6 +69,7 @@ Block.prototype.drawBlockThirdType = function() {
     BLOCK_W = Block.BLOCK_W;
     BLOCK_H = Block.BLOCK_H;
     INDENT = Block.INDENT;
+    var context = this.context;
     
     context.fillStyle = '#dd0d00';
     context.fillRect(BLOCK_W * x + INDENT, BLOCK_H * y, BLOCK_W - 1 , BLOCK_H - 1);
@@ -84,9 +89,11 @@ Block.prototype.drawBlockThirdType = function() {
 Block.prototype.drawBlockFourthType = function() {
     x = this.x;
     y = this.y;
+    
     BLOCK_W = Block.BLOCK_W;
     BLOCK_H = Block.BLOCK_H;
     INDENT = Block.INDENT;
+    var context = this.context;
     
     context.fillStyle = '#1e2fdf';
     context.fillRect(BLOCK_W * x + INDENT, BLOCK_H * y, BLOCK_W - 1 , BLOCK_H - 1);

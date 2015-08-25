@@ -15,3 +15,8 @@ TetrisGame.prototype.startGame = function() {
     this._activeScreen = new GameScreen(this);  
     this._activeScreen.show();
 };
+
+TetrisGame.prototype.records = function() {
+    this._activeScreen = new RecordsScreen(this);  
+    this._activeScreen.show(); 
+};

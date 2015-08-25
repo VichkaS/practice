@@ -6,7 +6,6 @@ var Tetromino = function(){
 Tetromino.prototype.draw = function(tetromino, X, Y) {
     X = X || this.x;
     Y = Y || this.y;
-    context.strokeStyle = 'black';
     sideLength = tetromino.length;    
     for (var y = 0; y < sideLength; ++y) {
         for (var x = 0; x < sideLength; ++x) {

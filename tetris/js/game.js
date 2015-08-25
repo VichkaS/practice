@@ -1,9 +1,17 @@
 var GameScreen = function(game) {
     this.canvas = game.getCanvas();
+    this._context = this.canvas.getContext('2d');
 };
 
 GameScreen.prototype.show = function() {
-    board = new Board(canvas);
+    var gScreen = new Image();
+    var context = this._context;
+    gScreen.src = 'backgroundField.png';
+    gScreen.onload = function(){
+        context.drawImage(gScreen, 0, 0);
+    }
+    
+    board = new Board(this.canvas);
     board.initializeBoard();
     board.randomTetromino();
     board.interval();
