@@ -48,15 +48,14 @@ Board.prototype.random = function() {
     return tetromino;
 };
 
-Board.prototype.interval = function() {
-    this.intervalDraw = setInterval(this.drawBoard.bind(this), 30);
+Board.prototype.playGame = function() {
+    this.intervalDraw = setInterval(this._drawBoard.bind(this), 30);
     this.intervalGame = setInterval(this._tick.bind(this), 500);
 };
 
-Board.prototype.intervalStop = function() {
+Board.prototype._stopGame = function() {
     clearInterval(this.intervalDraw);
     clearInterval(this.intervalGame);
-    clearInterval(this.intervalField);
 };
 
 Board.prototype.randomTetromino = function() {
@@ -65,7 +64,7 @@ Board.prototype.randomTetromino = function() {
     currentTetromino = this.tetromino.form;
 };
 
-Board.prototype.drawBoard = function() {   
+Board.prototype._drawBoard = function() {   
     this._drawGameField();
     this._drawNextTetrominoAndGameStatistics();
     this.tetromino.draw(currentTetromino);
@@ -152,7 +151,7 @@ Board.prototype._tick = function() {
         this._fixShape();
         this._clearLine();
         if (this.isEndGame) {
-            this.intervalStop();
+            this._stopGame();
             return false;
         }
         this.randomTetromino();
@@ -263,43 +262,45 @@ Board.prototype._printPause = function() {
     indent = this._getIndentForFieldLeft();
     this.context.font = "100px Courier New";
     this.context.fillStyle = "#fff";
-    this.context.fillText("PAUSE", indent, 300)
+    this.context.fillText("PAUSE", indent, 300);
 };
 
 Board.prototype.action = function(key) {
     switch(key) {
         case 'left':
-            if (this._checkOffset(0, -1, currentTetromino))
+            if (this._checkOffset(0, -1, currentTetromino) && (this.isPause))
             {
                 X = this.tetromino.getX();
                 this.tetromino.setX(X - 1);
-                this.drawBoard();
+                this._drawBoard();
             };
             break;
         case 'right':
-            if (this._checkOffset(0, 1, currentTetromino))
+            if (this._checkOffset(0, 1, currentTetromino) && (this.isPause))
             {
                 X = this.tetromino.getX();
                 this.tetromino.setX(X + 1);
-                this.drawBoard();
+                this._drawBoard();
             };
             break;
         case 'down':
-            if (this._checkOffset(1, 0, currentTetromino)) {
+            if (this._checkOffset(1, 0, currentTetromino) && (this.isPause)) {
                 Y = this.tetromino.getY();
                 this.tetromino.setY(Y + 1);
-                this.drawBoard();
+                this._drawBoard();
             };
             break;
         case 'rotate':
-            var tempTetromino = tetromino.rotate(currentTetromino);
-            if (this._checkOffset(0, 0, tempTetromino)) {
-                currentTetromino = tempTetromino;
-                this.drawBoard();
+            if (this.isPause) {
+                var tempTetromino = tetromino.rotate(currentTetromino);
+                if (this._checkOffset(0, 0, tempTetromino)) {
+                    currentTetromino = tempTetromino;
+                    this._drawBoard();
+                };
             };
             break;
         case 'menu':
-            this.intervalStop();
+            this._stopGame();
             this._drawField();
             this.isEndGame = true;
             game.start();
@@ -308,12 +309,11 @@ Board.prototype.action = function(key) {
             if (!this.isEndGame) {
                 console.log(!this.isEndGame);
                 if (this.isPause) {
-                    this.intervalStop();
-                    this.intervalField = setInterval(this._printPause.bind(this), 30);
+                    this._stopGame();
+                    this._printPause();
                     this.isPause = false;
                 } else {
-                    this.interval();
-                    clearInterval(this.intervalField);
+                    this.playGame();
                     this.isPause = true;
                 };
             }

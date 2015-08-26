@@ -21,7 +21,8 @@ RecordsScreen.prototype.show = function() {
             }
             else {
                 countRecords = localStorage.length; 
-            }
+            }      
+            
             for (var i = 0; i < countRecords; i++) {
                 var key = localStorage.key(i);
                 ind += 40;

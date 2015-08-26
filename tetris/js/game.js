@@ -14,7 +14,7 @@ GameScreen.prototype.show = function() {
     board = new Board(this.canvas);
     board.initializeBoard();
     board.randomTetromino();
-    board.interval();
+    board.playGame();
     
     document.body.onkeydown = function(e) {
         var keys = {
