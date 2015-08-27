@@ -16,11 +16,11 @@ MenuScreen.prototype.show = function() {
     canvas.onmouseup = function(e) {
         var x = e.pageX - canvas.offsetLeft, 
             y = e.pageY - canvas.offsetTop;
-        if (x > buttons[0].x && x < buttons[0].x + buttons[0].w && y > buttons[0].y && y < buttons[0].y + buttons[0].h) {
+        if (clickButton(x, y, buttons, 0)) {
             game.startGame();
             canvas.onmouseup = null;
         }
-        if (x > buttons[1].x && x < buttons[1].x + buttons[1].w && y > buttons[1].y && y < buttons[1].y + buttons[1].h) {
+        if (clickButton(x, y, buttons, 1)) {
             game.records();
             canvas.onmouseup = null;
         }
@@ -33,6 +33,16 @@ function Button(x, y, w, h, image) {
     this.w = w;
     this.h = h;
     this.image = image;
+};
+
+function clickButton(x, y, buttons, numberButton) {
+    if (x > buttons[numberButton].x && x < buttons[numberButton].x + buttons[numberButton].w 
+        && y > buttons[numberButton].y && y < buttons[numberButton].y + buttons[numberButton].h) {
+        return true;
+    }
+    else {
+        return false;      
+    }
 };
 
 MenuScreen.prototype._drawButton = function() {

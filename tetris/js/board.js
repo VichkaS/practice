@@ -181,9 +181,11 @@ Board.prototype._checkOffset = function(offsetY, offsetX, currentTetromino) {
     for (var y = 0; y < this.tetromino.sideLength; ++y) {
         for (var x = 0; x < this.tetromino.sideLength; ++x) {
             if (newCurrent[y][x]) {
-                if ( typeof this.board[y + offsetY] == 'undefined' || typeof this.board[y + offsetY][x + offsetX] == 'undefined' 
-                    || this.board[y + offsetY][x + offsetX] || y + offsetY >= Board.ROWS 
-                    || x + offsetX >= Board.COLS || x + offsetX < 0) {
+                var tetrominoCanMove = typeof this.board[y + offsetY] == 'undefined' || 
+                    typeof this.board[y + offsetY][x + offsetX] == 'undefined' || 
+                    this.board[y + offsetY][x + offsetX] || y + offsetY >= Board.ROWS || 
+                    x + offsetX >= Board.COLS || x + offsetX < 0;
+                if (tetrominoCanMove) {
                     if (offsetY == 0 && (offsetX == 4 || offsetX == 3)) {
                         this._endGame();
                         this._saveResult();
@@ -199,7 +201,13 @@ Board.prototype._checkOffset = function(offsetY, offsetX, currentTetromino) {
 Board.prototype._saveResult = function() {
     var playerName = prompt('Enter name', 'Name');
     if (playerName != null && this.countLines != 0) {
-        localStorage.setItem(playerName, this.score); 
+        var obj = {};
+        if (localStorage["tetrisRecords"] != null) {
+            obj = JSON.parse(localStorage["tetrisRecords"]);
+        }
+        obj[playerName] = this.score;
+        localStorage["tetrisRecords"] = JSON.stringify(obj);
+        console.log(localStorage["tetrisRecords"]);
     };
 };
 
@@ -237,24 +245,15 @@ Board.prototype._clearLine = function() {
             ++line;
         }
     }
-    switch(cLine) {
-        case 1:
-            this.score += 100;
-            this.countLines += cLine;
-            break;
-        case 2: 
-            this.score += 300;
-            this.countLines += cLine;
-            break;
-        case 3:
-            this.score += 700;
-            this.countLines += cLine;
-            break;
-        case 4:
-            this.score += 1500;
-            this.countLines += cLine;
-            break;
-    }   
+    var scores = {
+        0: 0,
+        1: 100,
+        2: 300,
+        3: 700,
+        4: 1500      
+    }
+    this.score += scores[cLine];
+    this.countLines += cLine;
 };
 
 Board.prototype._printPause = function() {

@@ -3,14 +3,14 @@ var Tetromino = function(){
     this.y = 0;
 };
 
-Tetromino.prototype.draw = function(tetromino, X, Y) {
-    X = X || this.x;
-    Y = Y || this.y;
+Tetromino.prototype.draw = function(tetromino, dx, dy) {
+    dx = dx || this.x;
+    dy = dy || this.y;
     sideLength = tetromino.length;    
     for (var y = 0; y < sideLength; ++y) {
         for (var x = 0; x < sideLength; ++x) {
             if (tetromino[y][x]) {               
-                this.drawBlok(X + x, Y + y);
+                this.drawBlok(dx + x, dy + y);
             }
         }
     }  

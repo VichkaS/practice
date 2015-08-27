@@ -9,30 +9,34 @@ RecordsScreen.prototype.show = function() {
     rScreen.src = 'backgroundRecords.png';
     rScreen.onload = function(){
         context.drawImage(rScreen, 0, 0);
-        var ind = 0;
+        var indentDown = 0;
         context.font = "bold 40px Arial";
         context.fillStyle = '#fff';
-        if (localStorage.length == 0) {
+        if (localStorage["tetrisRecords"] == null) {
             context.fillText("No records", 310, 260);
         }
         else {
-            if (localStorage.length > 8) {
+            var obj = JSON.parse(localStorage["tetrisRecords"]);
+            var listNew = [];
+            for (var i in obj) {
+                listNew.push({ name: i, score: obj[i]});
+            };
+            listNew.sort(compareObjects);
+            var countRecords = listNew.length;
+            if (countRecords > 8) {
                 countRecords = 8;
-            }
-            else {
-                countRecords = localStorage.length; 
-            }      
-            
-            for (var i = 0; i < countRecords; i++) {
-                var key = localStorage.key(i);
-                ind += 40;
-                context.fillText(key, 100, 220 + ind);
-                context.fillText(localStorage[key], 310, 220 + ind);
+            };
+            for (var i = 0; i < countRecords ; i++) {
+                indentDown += 40;
+                console.log(listNew[i].score);
+                context.fillText(listNew[i].name, 100, 220 + indentDown);
+                context.fillText(listNew[i].score, 310, 220 + indentDown);
             }
         }
     };
     document.body.onkeydown = function(e) {
-        if (e.keyCode == 27) {
+        var key = {27: 'menu'};
+        if (key[e.keyCode]) {
             context.fillStyle = 'black';
             context.fillRect(0, 0, canvas.width, canvas.height);
             game.start();
@@ -40,7 +44,8 @@ RecordsScreen.prototype.show = function() {
     };
 };
 
-RecordsScreen.prototype._printTable = function() {
-    this.context.fillStyle = 'black';
-    this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);  
+function compareObjects (a, b) {
+  if (a.score < b.score) return 1;
+  if (a.score > b.score) return -1;
+  return 0;
 };
