@@ -1,14 +1,13 @@
 var Block = function(x, y) {
-    this.canvas = game.getCanvas();
-    this.context = this.canvas.getContext('2d');
-    this.x = x;
-    this.y = y;
-}
+    this._canvas = game.getCanvas();
+    this._context = this._canvas.getContext('2d');
+    this._x = x;
+    this._y = y;
+};
 
 Block.BLOCK_W = 30;
 Block.BLOCK_H = 30;
 Block.INDENT = 250;
-
 
 Block.TYPES = {
     BLUE_SQUARE_AND_SMALL_WHITE_SQUARE: 1,
@@ -17,89 +16,66 @@ Block.TYPES = {
     BLUE_SQUARE_AND_BIG_WHITE_SQUARE: 4,
 };
 
+Block.prototype._drawBasis = function(color) {
+    var x = this._x,
+        y = this._y;
+    
+    this._context.fillStyle = color;
+    this._context.fillRect(Block.BLOCK_W * x + Block.INDENT, Block.BLOCK_H * y, Block.BLOCK_W - 1 , Block.BLOCK_H - 1);
+    this._context.strokeRect(Block.BLOCK_W * x + Block.INDENT, Block.BLOCK_H * y, Block.BLOCK_W - 1 , Block.BLOCK_H - 1);
+};
+
+Block.prototype._drawSmallWhiteSquare = function() {
+    var x = this._x,
+        y = this._y;
+    
+    this._context.fillStyle = '#FFFFFF';
+    this._context.fillRect(((Block.BLOCK_W * x) + 1) + Block.INDENT, Block.BLOCK_H * y, (Block.BLOCK_W / 4) - 1 , (Block.BLOCK_H / 4) - 1);
+    this._context.strokeRect(Block.BLOCK_W * x + Block.INDENT, Block.BLOCK_H * y, Block.BLOCK_W - 1 , Block.BLOCK_H - 1);
+};
+
+Block.prototype._drawWhiteAngle = function(color) {
+    var x = this._x,
+        y = this._y;
+    
+    this._context.fillStyle = '#FFFFFF';
+    this._context.fillRect((Block.BLOCK_W * x) + (Block.BLOCK_W / 5) + Block.INDENT, (Block.BLOCK_H * y) + (Block.BLOCK_H / 5), 
+                           (Block.BLOCK_W - (Block.BLOCK_W / 5) * 3 - 1), (Block.BLOCK_H - (Block.BLOCK_W / 5) * 3 - 1));
+    this._context.fillStyle = color;
+    this._context.fillRect((Block.BLOCK_W * x) + (Block.BLOCK_W / 2.5) + Block.INDENT, (Block.BLOCK_H * y) + (Block.BLOCK_H / 2.5), 
+                           (Block.BLOCK_W - (Block.BLOCK_W / 2) - 1), (Block.BLOCK_H - (Block.BLOCK_W / 2) - 1));
+    this._context.strokeRect(Block.BLOCK_W * x + Block.INDENT, Block.BLOCK_H * y, Block.BLOCK_W - 1 , Block.BLOCK_H - 1); 
+};
+
+Block.prototype._drawBigWhiteSquare = function() {
+    var x = this._x,
+        y = this._y;
+    
+    this._context.fillStyle = '#FFFFFF';
+    this._context.fillRect((Block.BLOCK_W * x) + (Block.BLOCK_W / 5) + Block.INDENT, (Block.BLOCK_H * y) + (Block.BLOCK_H / 5), 
+                           (Block.BLOCK_W - (Block.BLOCK_W / 5) * 2 - 1), (Block.BLOCK_H - (Block.BLOCK_W / 5) * 2 - 1));
+    this._context.strokeRect(Block.BLOCK_W * x + Block.INDENT, Block.BLOCK_H * y, Block.BLOCK_W - 1 , Block.BLOCK_H - 1);
+};
 
 Block.prototype.drawBlockFirstType = function() {
-    x = this.x;
-    y = this.y;
-    BLOCK_W = Block.BLOCK_W;
-    BLOCK_H = Block.BLOCK_H;
-    INDENT = Block.INDENT;
-    var context = this.context;
-    
-    context.fillStyle = '#1e2fdf';
-    context.fillRect(BLOCK_W * x + INDENT, BLOCK_H * y, BLOCK_W - 1 , BLOCK_H - 1);
-    context.strokeRect(BLOCK_W * x + INDENT, BLOCK_H * y, BLOCK_W - 1 , BLOCK_H - 1);
-    context.fillStyle = '#FFFFFF';
-    //верхний левый квадрат
-    context.fillRect(((BLOCK_W * x) + 1) + INDENT, BLOCK_H * y, (BLOCK_W / 4) - 1 , (BLOCK_H / 4) - 1);
-    context.strokeRect(BLOCK_W * x + INDENT, BLOCK_H * y, BLOCK_W - 1 , BLOCK_H - 1);
-    //квадрат по центру
-    context.fillRect((BLOCK_W * x) + (BLOCK_W / 5) + INDENT, (BLOCK_H * y) + (BLOCK_H / 5), 
-                    (BLOCK_W - (BLOCK_W / 5) * 2 - 1), (BLOCK_H - (BLOCK_W / 5) * 2 - 1));
-    context.strokeRect(BLOCK_W * x + INDENT, BLOCK_H * y, BLOCK_W - 1 , BLOCK_H - 1);
-}
+    this._drawBasis('#1e2fdf');
+    this._drawSmallWhiteSquare();
+    this._drawBigWhiteSquare();
+};
 
 Block.prototype.drawBlockSecondType = function() {
-    x = this.x;
-    y = this.y;
-    BLOCK_W = Block.BLOCK_W;
-    BLOCK_H = Block.BLOCK_H;
-    INDENT = Block.INDENT;
-    var context = this.context;
-    
-    context.fillStyle = '#1e2fdf';
-    context.fillRect(BLOCK_W * x + INDENT, BLOCK_H * y, BLOCK_W - 1 , BLOCK_H - 1);
-    context.strokeRect(BLOCK_W * x + INDENT, BLOCK_H * y, BLOCK_W - 1 , BLOCK_H - 1);
-    context.fillStyle = '#FFFFFF';
-    //верхний левый квадрат
-    context.fillRect(((BLOCK_W * x) + 1) + INDENT, BLOCK_H * y, (BLOCK_W / 4) - 1 , (BLOCK_H / 4) - 1);
-    context.strokeRect(BLOCK_W * x + INDENT, BLOCK_H * y, BLOCK_W - 1 , BLOCK_H - 1);
-    // уголок в центре
-    context.fillRect((BLOCK_W * x) + (BLOCK_W / 5) + INDENT, (BLOCK_H * y) + (BLOCK_H / 5), 
-                     (BLOCK_W - (BLOCK_W / 5) * 3 - 1), (BLOCK_H - (BLOCK_W / 5) * 3 - 1));
-    context.fillStyle = '#1e2fdf';
-    context.fillRect((BLOCK_W * x) + (BLOCK_W / 2.5) + INDENT, (BLOCK_H * y) + (BLOCK_H / 2.5), 
-                     (BLOCK_W - (BLOCK_W / 2.5) - 1), (BLOCK_H - (BLOCK_W / 2.5) - 1));
-    context.strokeRect(BLOCK_W * x + INDENT, BLOCK_H * y, BLOCK_W - 1 , BLOCK_H - 1);
-}
+    this._drawBasis('#1e2fdf');
+    this._drawSmallWhiteSquare();
+    this._drawWhiteAngle('#1e2fdf');
+};
 
 Block.prototype.drawBlockThirdType = function() {
-    x = this.x;
-    y = this.y;
-    BLOCK_W = Block.BLOCK_W;
-    BLOCK_H = Block.BLOCK_H;
-    INDENT = Block.INDENT;
-    var context = this.context;
-    
-    context.fillStyle = '#dd0d00';
-    context.fillRect(BLOCK_W * x + INDENT, BLOCK_H * y, BLOCK_W - 1 , BLOCK_H - 1);
-    context.strokeRect(BLOCK_W * x + INDENT, BLOCK_H * y, BLOCK_W - 1 , BLOCK_H - 1);
-    context.fillStyle = '#FFFFFF';
-    context.fillRect(((BLOCK_W * x) + 1) + INDENT, BLOCK_H * y, (BLOCK_W / 4) - 1 , (BLOCK_H / 4) - 1);
-    context.strokeRect(BLOCK_W * x + INDENT, BLOCK_H * y, BLOCK_W - 1 , BLOCK_H - 1);
-    // уголок в центре
-    context.fillRect((BLOCK_W * x) + (BLOCK_W / 5) + INDENT, (BLOCK_H * y) + (BLOCK_H / 5), 
-                      (BLOCK_W - (BLOCK_W / 5) * 3 - 1), (BLOCK_H - (BLOCK_W / 5) * 3 - 1));
-    context.fillStyle = '#dd0d00';
-    context.fillRect((BLOCK_W * x) + (BLOCK_W / 2.5) + INDENT, (BLOCK_H * y) + (BLOCK_H / 2.5), 
-                     (BLOCK_W - (BLOCK_W / 2.5) - 1), (BLOCK_H - (BLOCK_W / 2.5) - 1));
-    context.strokeRect(BLOCK_W * x + INDENT, BLOCK_H * y, BLOCK_W - 1 , BLOCK_H - 1); 
-}
+    this._drawBasis('#dd0d00');
+    this._drawSmallWhiteSquare();
+    this._drawWhiteAngle('#dd0d00');
+};
 
 Block.prototype.drawBlockFourthType = function() {
-    x = this.x;
-    y = this.y;
-    
-    BLOCK_W = Block.BLOCK_W;
-    BLOCK_H = Block.BLOCK_H;
-    INDENT = Block.INDENT;
-    var context = this.context;
-    
-    context.fillStyle = '#1e2fdf';
-    context.fillRect(BLOCK_W * x + INDENT, BLOCK_H * y, BLOCK_W - 1 , BLOCK_H - 1);
-    context.strokeRect(BLOCK_W * x + INDENT, BLOCK_H * y, BLOCK_W - 1 , BLOCK_H - 1);
-    context.fillStyle = '#FFFFFF';
-    context.fillRect((BLOCK_W * x) + (BLOCK_W / 5) + INDENT, (BLOCK_H * y) + (BLOCK_H / 5), 
-                     (BLOCK_W - (BLOCK_W / 5) * 2 - 1), (BLOCK_H - (BLOCK_W / 5) * 2 - 1));
-    context.strokeRect(BLOCK_W * x + INDENT, BLOCK_H * y, BLOCK_W - 1 , BLOCK_H - 1);
-}
+    this._drawBasis('#1e2fdf');
+    this._drawBigWhiteSquare();
+};

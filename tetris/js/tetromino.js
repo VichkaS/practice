@@ -26,23 +26,23 @@ Tetromino.prototype.rotate = function(tetromino) {
         }
     }
     return newTetromino;
-}
+};
 
 Tetromino.prototype.getY = function() {
     return this.y;
-}
+};
 
 Tetromino.prototype.setY = function(newY) {
     this.y = newY;
-}
+};
 
 Tetromino.prototype.getX = function() {
     return this.x;
-}
+};
 
 Tetromino.prototype.setX = function(newX) {
     this.x = newX;
-}
+};
 
 var TTetromino = function(x, y){
     this.x = x;

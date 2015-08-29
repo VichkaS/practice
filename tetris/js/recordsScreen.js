@@ -1,6 +1,6 @@
 var RecordsScreen = function(game) {
-    this.canvas = game.getCanvas();
-    this.context = this.canvas.getContext('2d');
+    this._canvas = game.getCanvas();
+    this._context = this._canvas.getContext('2d');
 };
 
 RecordsScreen.MAX_COUNT_RECORDS = 8;
@@ -18,10 +18,10 @@ RecordsScreen.prototype._getRecords = function() {
 RecordsScreen.prototype._printRecords = function() {
     var indentDown = 0;
     var listRecords = this._getRecords();
-    this.context.font = "bold 40px Arial";
-    this.context.fillStyle = '#fff';
+    this._context.font = "bold 40px Arial";
+    this._context.fillStyle = '#fff';
     if (localStorage["tetrisRecords"] == null) {
-        this.context.fillText("No records", 310, 260);
+        this._context.fillText("No records", 310, 260);
     }
     else { 
         var countRecords = listRecords.length;
@@ -30,8 +30,8 @@ RecordsScreen.prototype._printRecords = function() {
         };
         for (var i = 0; i < countRecords ; i++) {
             indentDown += 40;
-            this.context.fillText(listRecords[i].name, 100, 220 + indentDown);
-            this.context.fillText(listRecords[i].score, 310, 220 + indentDown);
+            this._context.fillText(listRecords[i].name, 100, 220 + indentDown);
+            this._context.fillText(listRecords[i].score, 310, 220 + indentDown);
         }
     }
 };
@@ -41,14 +41,12 @@ RecordsScreen.prototype.show = function() {
     var self = this;
     rScreen.src = 'backgroundRecords.png';
     rScreen.onload = function(){
-        self.context.drawImage(rScreen, 0, 0);
+        self._context.drawImage(rScreen, 0, 0);
         self._printRecords();
     };
     document.body.onkeydown = function(e) {
         var key = {27: 'menu'};
         if (key[e.keyCode]) {
-            self.context.fillStyle = 'black';
-            self.context.fillRect(0, 0, canvas.width, canvas.height);
             game.start();
         };
     };

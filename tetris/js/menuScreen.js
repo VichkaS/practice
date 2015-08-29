@@ -5,8 +5,8 @@ var MenuScreen = function(game) {
 };
 
 MenuScreen.prototype._getIndentForButtonLeft = function() {
-    return (this._canvas.width - 200) / 2;
-}
+    return (this._canvas.width - 230) / 2;
+};
 
 MenuScreen.prototype.show = function() {
     canvas = this._canvas;
@@ -60,15 +60,22 @@ function initializeButton(MenuScreen, y, w, h, image) {
 };
 
 MenuScreen.prototype._drawMenu = function(buttons) {
-    
+    var self = this;
     var buttonStart = new Image();
     buttonStart.src = 'button_start.png';
-    button = initializeButton(this, 100, 188, 56, buttonStart);    
+    button = initializeButton(this, 300, 230, 70, buttonStart);    
     buttons.push(button);
     
     var buttonRecords = new Image();
     buttonRecords.src = 'button_records.png';
-    button = initializeButton(this, 200, 188, 56, buttonRecords);  
+    button = initializeButton(this, 400, 230, 70, buttonRecords);  
     buttons.push(button);
-    setTimeout(this._drawButton.bind(this), 100);
+    
+    var mScreen = new Image();
+    mScreen.src = 'backgroundMenu.png';
+    
+    mScreen.onload = function(){
+        self._context.drawImage(mScreen, 0, 0);
+        self._drawButton();
+    }
 };
