@@ -218,8 +218,8 @@ Board.prototype._endGame = function() {
     indent = this._getIndentForFieldLeft();
     this.context.font = "100px Courier New";
     this.context.fillStyle = "#fff";
-    this.context.fillText("GAME", indent + 20, 250);
-    this.context.fillText("OVER", indent + 20, 350);
+    this.context.fillText("GAME", indent + 20, 280);
+    this.context.fillText("OVER", indent + 20, 375);
     
 };
 
@@ -261,7 +261,7 @@ Board.prototype._printPause = function() {
     indent = this._getIndentForFieldLeft();
     this.context.font = "100px Courier New";
     this.context.fillStyle = "#fff";
-    this.context.fillText("PAUSE", indent, 300);
+    this.context.fillText("PAUSE", indent, 330);
 };
 
 Board.prototype.action = function(key) {
