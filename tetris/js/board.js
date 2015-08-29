@@ -224,7 +224,7 @@ Board.prototype._endGame = function() {
 };
 
 Board.prototype._clearLine = function() {
-    var cLine = 0;
+    var countDelLine = 0;
     for (var line = Board.ROWS - 1; line >= 0; --line) {
         var isLine = true;
         for (var column = 0; column < Board.COLS; ++column) {
@@ -234,12 +234,10 @@ Board.prototype._clearLine = function() {
             }
         }
         if(isLine) {
-            cLine++;
-            console.log(this.countLines);
+            countDelLine++;
             for (var delLine = line; delLine > 0; --delLine) {
                 for (var column = 0; column < Board.COLS; ++column) {
-                    this.board[delLine][column] = this.board[delLine - 1][column];
-                    
+                    this.board[delLine][column] = this.board[delLine - 1][column];                  
                 }
             }
             ++line;
@@ -252,8 +250,8 @@ Board.prototype._clearLine = function() {
         3: 700,
         4: 1500      
     }
-    this.score += scores[cLine];
-    this.countLines += cLine;
+    this.score += scores[countDelLine];
+    this.countLines += countDelLine;
 };
 
 Board.prototype._printPause = function() {
@@ -308,12 +306,12 @@ Board.prototype.action = function(key) {
             if (!this.isEndGame) {
                 console.log(!this.isEndGame);
                 if (this.isPause) {
+                    this.isPause = false;
                     this._stopGame();
                     this._printPause();
-                    this.isPause = false;
                 } else {
-                    this.playGame();
                     this.isPause = true;
+                    this.playGame();
                 };
             }
             break;
