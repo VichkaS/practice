@@ -25,8 +25,9 @@ RecordsScreen.prototype._printRecords = function() {
     }
     else { 
         var countRecords = listRecords.length;
-        if (countRecords > this.MAX_COUNT_RECORDS) {
-            countRecords = this.MAX_COUNT_RECORDS;
+        console.log(countRecords);
+        if (countRecords > RecordsScreen.MAX_COUNT_RECORDS) {
+            countRecords = RecordsScreen.MAX_COUNT_RECORDS;
         };
         for (var i = 0; i < countRecords ; i++) {
             indentDown += 40;

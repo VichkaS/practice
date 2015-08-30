@@ -21,7 +21,6 @@ Board.prototype._getIndentForFieldLeft = function() {
 
 Board.prototype._random = function() {
     var id = Math.floor(Math.random() * (8 - 1) + 1);
-    console.log(id);
     switch (id) {
         case 1:
             tetromino = new TTetromino(4, -1);
@@ -199,7 +198,7 @@ Board.prototype._checkOffset = function(offsetY, offsetX, currentTetromino) {
 };
 
 Board.prototype._saveResult = function() {
-    var playerName = prompt('Enter name', 'Name');
+    var playerName = prompt('Enter name', 'Your name');
     if (playerName != null && this._countLines != 0) {
         var obj = {};
         if (localStorage["tetrisRecords"] != null) {
@@ -207,7 +206,6 @@ Board.prototype._saveResult = function() {
         }
         obj[playerName] = this._score;
         localStorage["tetrisRecords"] = JSON.stringify(obj);
-        console.log(localStorage["tetrisRecords"]);
     };
 };
 
@@ -234,6 +232,7 @@ Board.prototype._clearLine = function() {
             }
         }
         if(isLine) {
+            document.getElementById('soundClearLine').play()
             countDelLine++;
             for (var delLine = line; delLine > 0; --delLine) {
                 for (var column = 0; column < Board.COLS; ++column) {
@@ -263,7 +262,7 @@ Board.prototype._printPause = function() {
 };
 
 Board.prototype.action = function(key) {
-    switch(key) {
+    switch(key) {         
         case 'left':
             if (this._checkOffset(0, -1, currentTetromino) && (this._isPause))
             {
@@ -304,7 +303,6 @@ Board.prototype.action = function(key) {
             break;
         case 'pause':
             if (!this._isEndGame) {
-                console.log(!this._isEndGame);
                 if (this._isPause) {
                     this._isPause = false;
                     this._stopGame();
