@@ -1,0 +1,145 @@
+.main
+{
+    width: 1000px;
+    min-height: 100%;
+    margin: 0 auto;
+    border: 1px solid;
+    border-top: none;
+    border-bottom: none;
+}
+
+/* Here custom styles begin */
+
+.header
+{
+    margin-bottom:10px;
+}
+
+.header div.layer1
+{
+    width:700px;
+    margin-bottom:10px;
+	border: 50px solid #00ffff;
+}
+.header div.layer2
+{
+    width:900px;
+	border: 30px solid #33ccff;
+}
+
+.leftScreen
+{
+    float: left;
+    background-color: #3399ff;
+    width: 540px;
+    height: 340px;
+}
+
+.rightScreen
+{
+    float: right;
+    background-color: #6699ff;
+    width: 400px;
+    height: 300px;
+
+}
+
+.topBlock
+{
+    float: right;
+    margin-bottom: 15px;
+}
+.middleBlock
+{
+    float: left;
+    clear: both;
+    margin-bottom: 15px;
+}
+.lowerBlock
+{
+    float: left;
+    clear: both;
+    background-color: #6600cc;
+    width: 400px;
+    height: 50px;
+}
+.element1
+{
+    float: right;
+    background-color: #ff00ff;
+    margin-left: 10px;
+    width: 80px;
+    height: 60px;
+}
+
+.element2
+{
+    float: left;
+    background-color: #0033cc;
+    width: 70px;
+    height: 60px;
+}
+
+.leftTopBlock
+{
+    margin-bottom: 15px;  
+}
+.leftElement1
+{
+    float: left;
+    margin: 20px;
+    background-color: #9999ff;
+    width: 200px;
+    height: 40px;
+}
+
+.leftElement2
+{
+    float: right;
+    margin: 20px;
+    background-color: #cc66ff;
+    width: 250px;
+    height: 70px;
+}
+
+.leftMiddleBlock
+{
+    clear: both;
+    margin: 20px;
+    background-color: #ff6666;
+    width: 500px;
+    height: 50px;
+}
+
+.leftLowerBlock
+{
+    margin: 20px;
+    
+}
+
+.block1
+{
+    float: left;
+    margin-right: 20px;
+    background-color: #660033;
+    width: 100px;
+    height: 70px;
+}
+
+.block2
+{
+    float: left;
+    background-color: #000066;
+    width: 80px;
+    height: 70px;
+}
+
+.block3
+{
+    float: right;
+    background-color: #999966;
+    width: 90px;
+    height: 70px;
+}
+
+/* Here custom styles end */
