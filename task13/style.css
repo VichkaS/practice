@@ -4,19 +4,19 @@ body {
 }
 
 #page {
-    position: relative;
-    margin:auto;
-    max-width: 925px;
+    text-align: center;
+    margin: 3.6% auto; /*36px*/
+    width: 90%;
     
 }
-@media screen and (max-width: 768px) {
-    #page {
-        position: relative;
-        margin: 20px;
-        width: auto;       
-    }
+.wrapper {
+    margin: 0 auto 5.3%; /*53px;*/
+    width: 92.5%; /* 925px / 1000px */
 }
+
 .header {
+    text-align: left;
+    width: 92.5%;
     margin-top: 40px;
 }
 
@@ -48,18 +48,8 @@ body {
     font: 14px 'Arial', sans-serif;
 }
 
-@media screen and (max-width: 768px) {
-    .header h1 {
-        display: none;
-    }
-    .header h3 {
-        display: none;
-    }
-    .header img {
-        margin-bottom: 30px;
-    }
-}
 nav.menu {
+    width: 92.5%;
     margin-top: 40px;
     margin-bottom: 40px;
     border-bottom: 1px solid #ababab;
@@ -68,13 +58,13 @@ nav.menu {
 
 .top-menu {
     margin: 0;
-    padding-left: 37.5px;
+    padding: 0;
 }
 
 .top-menu li {
     font: 18px 'Arial', sans-serif;
     display: inline-block;
-    padding: 10px 37.5px;
+    padding: 1% 4.05% 1% 0;/*10px 37.5px;*/
 }
 
 .top-menu a {
@@ -89,6 +79,8 @@ nav.menu {
     font: 12px 'Tahoma', sans-serif;
 }
 .content {
+    text-align: left;
+    width: 92.5%;
     float: left;
 }
 .slider {
@@ -102,7 +94,7 @@ nav.menu {
     float: left;
 }
 .slider div.slider-wrapper img.slide {
-    width: 100%;
+    max-width: 100%;
 }
 .slider div.slider-nav {
     float: left;
@@ -160,6 +152,8 @@ nav.menu {
 }
 
 .main-content {
+    width: 92.5%;
+    text-align: left;
     float: left;
     margin-top: 23px;
     border-top: 1px solid #ccb7b7;
@@ -172,9 +166,9 @@ nav.menu {
 }
 .latest-news {
     float: left;
-    width: 264px;
-    padding-right: 10px;
-    padding-bottom:10px;
+    width: 28.54%;/*264px*/
+    padding-right: 1%; /*10px*/
+    padding-bottom:1%;
     border-right: 1px solid  #ccb7b7;
 }
 .latest-news ul {
@@ -221,8 +215,8 @@ nav.menu {
 
 .who-we-are {
     float: left;
-    width: 260px;
-    padding: 0 40px 0 40px;
+    width: 28.1%; /*260px;*/
+    padding: 0 4.32% 0 4.32%;/*40px*/
 }
 .who-we-are div.block p {
     line-height: 1.3em;
@@ -235,9 +229,9 @@ nav.menu {
 
 .contact {
     float: left;
-    width: 264px;
+    width: 28.54%; /*264px;*/
     border-left: 1px solid  #ccb7b7;
-    padding-left: 45px;
+    padding-left: 4.86%; /*45px;*/
 }
 .contact ul {
     margin: 0;
@@ -268,6 +262,7 @@ nav.menu {
 }
 
 .clients {
+    width: 92.5%;
     margin: 0;
     position: relative;
     margin-top: 50px;
@@ -285,18 +280,21 @@ nav.menu {
     padding: 0 10px;
 }
 .clients div.img-clients {
+    max-width: 100%;
     display: inline-block;
+    
     position: relative;
 }
 .clients div.img-clients img {
-    padding: 5px 30px;
+    padding: 5px 30px; /*0.54054054% 3.243243%;5px 30px;*/
 }
 
 .footer {
+    width: 92.5%;
     margin: 20px;
 }
 .footer img {
-    width: 15%;
+    max-width: 15%;
     display: block;
     margin-bottom: 10px;
     margin-left: auto;
