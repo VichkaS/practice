@@ -232,7 +232,6 @@ Board.prototype._clearLine = function() {
             }
         }
         if(isLine) {
-            document.getElementById('soundClearLine').play()
             countDelLine++;
             for (var delLine = line; delLine > 0; --delLine) {
                 for (var column = 0; column < Board.COLS; ++column) {

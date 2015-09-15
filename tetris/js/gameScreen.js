@@ -1,6 +1,6 @@
 var GameScreen = function(game) {
-    this.canvas = game.getCanvas();
-    this._context = this.canvas.getContext('2d');
+    this._canvas = game.getCanvas();
+    this._context = this._canvas.getContext('2d');
 };
 
 GameScreen.prototype.show = function() {
@@ -11,7 +11,7 @@ GameScreen.prototype.show = function() {
         context.drawImage(gScreen, 0, 0);
     }
     
-    board = new Board(this.canvas);
+    board = new Board(this._canvas);
     board.initializeBoard();
     board.randomTetromino();
     board.playGame();
