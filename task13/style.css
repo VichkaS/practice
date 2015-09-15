@@ -84,7 +84,7 @@ nav.menu {
     float: left;
 }
 .slider {
-    width: 48.64%;/*448px;*/
+    max-width: 48.64%;/*448px;*/
     float:left;
     margin-right: 2%;/*25px;*/
     border: 1px solid #cccccc;
@@ -98,6 +98,7 @@ nav.menu {
     width: 100%;
 }
 .slider div.slider-nav {
+    width: 100%;
     float: left;
 }
 .slider-nav button {
@@ -109,21 +110,22 @@ nav.menu {
 
 .slider-nav button.slider-previous {
     float: left;
-    margin: 15px;
+    margin: 3.33%;/*15px;*/
     background-image: url(images/previous.png);
 }
 
 .slider-nav h3.text-4 {
     float: left;
-    margin: 15px; 
-    margin-left: 40px;
+    margin-top: 3.34%;/*15px*/; 
+    margin-bottom: 3.34%;/*15px*/; 
+    margin-left: 2%;/*40px;*/
     color: #000;
-    font: 18px 'Tahoma', sans-serif;
+    font: 100% 'Tahoma', sans-serif;
 }
 
 .slider-nav button.slider-next {
     float: right;
-    margin: 15px;
+    margin: 3.33%;/*15px;*/
     background-image: url(images/next.png);
 }
 
@@ -252,14 +254,14 @@ nav.menu {
     padding-bottom: 10px;
 }
 .contact ul li p img {
-    padding-right: 10px;
+    padding-right: 1%; /*10px;*/
 }
 .contact ul li p.phone, p.fax, p.e-mail {
     width: 90%;
     border-bottom: 1px dotted #ccb7b7;
 }
 .contact ul li p.adds {
-    padding-left: 37px;
+    padding-left: 4%;/*37px;*/
 }
 
 .clients {
@@ -281,13 +283,11 @@ nav.menu {
     padding: 0 10px;
 }
 .clients div.img-clients {
-    max-width: 100%;
-    display: inline-block;
-    
-    position: relative;
+    overflow: hidden;
+    max-width: 100%;  
 }
 .clients div.img-clients img {
-    padding: 5px 30px; /*0.54054054% 3.243243%;5px 30px;*/
+    padding: 0.54054054% 3.243243%; /*0.54054054% 3.243243%;5px 30px;*/
 }
 
 .footer {

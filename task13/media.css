@@ -1,34 +1,68 @@
 @media screen and (max-width: 768px) {
     #page {
         position: relative;
-        margin: 20px;
-        width: auto;       
+        margin: 2.6%; /*20px*/
+        width: 100%;       
+    }
+    .header {
+        margin: 0;
+        margin-left: 0;
+        
     }
     .header h1 {
-        display: none;
+        display:block;
+        visibility: collapse;
+        /*display: none;*/
     }
     .header h3 {
-        display: none;
+        display:block;
+        visibility: collapse;
+        /*display: none;*/
     }
     .header img {
         margin-bottom: 30px;
     }
-    .top-menu {
-        text-align: left;
-        padding-left: 0;
+    nav.menu {
+        margin-top: 1%;
+        margin-bottom: 1%;  
     }
     .top-menu li {
-        font: 18px 'Arial', sans-serif;
-        display: inline-block;
-        padding: 0.8% 2%; /*10px 37.5px;*/
+        font: 14px 'Arial', sans-serif;
+        padding: 0.8% 2% 0.8% 0; /*10px 37.5px;*/
     }
     .who-we-are {
         width: 29.16%;
         padding: 0 2.86% 0 2.86%;/*40px*/
             
     }
+    .contact {
+        float: left;
+        width: 28.54%; /*264px;*/
+        border-left: 1px solid  #ccb7b7;
+        padding-left: 2%; /*45px;*/
+    }
+    .contact ul li p {
+        font-size: 12px;
+    }
     .wrapper {
-    margin: 0 auto; /*53px;*/
-    width: 100%; /* 925px / 1000px */
-}
+        margin: 0; /*53px;*/
+        width: 100%; /* 925px / 1000px */
+    }
+    .latest-news ul li a {
+        font-size: 12px;
+    }
+    .who-we-are div.block p {
+        font-size: 12px;
+    }
+    .latest-news ul li p {
+        display: none;
+    }
+    
+    .latest-news ul li div.date h1 {  
+        font-size: 14px;
+    }
+    .clients div.img-clients img {
+        padding: 0.54054054% 0; /*0.54054054% 3.243243%;5px 30px;*/
+    }
+    
 }
