@@ -6,18 +6,14 @@
     }
     .header {
         margin: 0;
-        margin-left: 0;
-        
     }
     .header h1 {
         display:block;
-        visibility: collapse;
-        /*display: none;*/
+        display: none;
     }
     .header h3 {
         display:block;
-        visibility: collapse;
-        /*display: none;*/
+        display: none;
     }
     .header img {
         margin-bottom: 30px;
@@ -62,7 +58,47 @@
         font-size: 14px;
     }
     .clients div.img-clients img {
-        padding: 0.54054054% 0; /*0.54054054% 3.243243%;5px 30px;*/
+        padding: 0.5% 0; /*0.54054054% 3.243243%;5px 30px;*/
+    }
+    
+}
+
+
+
+
+@media screen and (max-width: 520px) {
+    .slider {
+        width: 92.5%;
+    }
+    .right-featuerd-article {
+        clear: both;
+        float: left;
+        width: 92.5%;
+    }
+    .latest-news {
+        width: 92.5%;
+    }
+    .who-we-are {
+        clear: both;
+        float: left;
+        width: 92.5%;
+    }
+    .contact {
+        clear: both;
+        float: left;
+        width: 92.5%;
+    }
+    .latest-news ul li a {
+        font-size: 14px;
+    }
+    .latest-news ul li p {
+        display: block;
+    }
+    .who-we-are div.block p {
+        font-size: 16px;
+    }
+    .contact ul li p {
+        font-size: 14px;
     }
     
 }
