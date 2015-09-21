@@ -7,6 +7,9 @@
     .header {
         margin: 0;
     }
+    .header p {
+        border: none;
+    }
     .header h1 {
         display:block;
         display: none;
@@ -18,13 +21,26 @@
     .header img {
         margin-bottom: 30px;
     }
-    nav.menu {
+    div.menu {
         margin-top: 1%;
         margin-bottom: 1%;  
     }
     .top-menu li {
         font: 14px 'Arial', sans-serif;
         padding: 0.8% 2% 0.8% 0; /*10px 37.5px;*/
+    }
+    .slider-nav h3.text-4 {
+
+        font-size: 2vw;
+    }
+    .right-featuerd-article div.text-right {
+        top: 15%;
+    }
+    .right-featuerd-article div.text-right h3 {
+         font-size: 2vw;
+    }
+    .right-featuerd-article div.text-right h1 {
+        font-size: 2xw;
     }
     .who-we-are {
         width: 29.16%;
@@ -58,35 +74,92 @@
         font-size: 14px;
     }
     .clients div.img-clients img {
-        padding: 0.5% 0; /*0.54054054% 3.243243%;5px 30px;*/
+        padding: 0.5% 0; /*5px 30px*/
     }
-    
 }
 
 
-
-
 @media screen and (max-width: 520px) {
+    .header img {
+        margin-bottom: 5px;
+    }
+    
+    div.menu {
+        margin: 0;
+        border: none;
+        
+    }
+    .menu a.main-item {
+        display: block;
+        position: absolute;
+        left: 75vw;
+        top: 10px;
+        width: 30px;
+        height: 30px;
+        background-image: url(images/menu.png);
+    }
+
+    .top-menu 
+    { 
+        display: none;
+        text-align: center;
+    }
+    .top-menu li
+    { 
+        display: list-item;
+    } 
+    .main-item:focus ~ .top-menu, 
+    .main-item:active ~ .top-menu, 
+    .top-menu:hover 
+    { 
+        display: block;
+        border-bottom: 1px solid #ababab;
+        border-top: 1px solid #ababab;  
+    } 
+    
     .slider {
         width: 92.5%;
+    }
+    .slider-nav h3.text-4 {
+
+        font-size: 100%;
     }
     .right-featuerd-article {
         clear: both;
         float: left;
         width: 92.5%;
+        margin-top: 20px;
+    }
+    .right-featuerd-article div.text-right {
+        top: 10%;
+    }
+    .right-featuerd-article div.text-right h3 {
+         font-size: 18px;
+    }
+    .right-featuerd-article div.text-right h1 {
+        font-size: 30px;
+    }
+    .who-we-are {
+        width: 29.16%;
+        padding: 0 2.86% 0 2.86%;/*40px*/
+            
     }
     .latest-news {
         width: 92.5%;
+        border: none;
     }
     .who-we-are {
         clear: both;
         float: left;
         width: 92.5%;
+        margin-top: 20px;
     }
     .contact {
         clear: both;
         float: left;
         width: 92.5%;
+        border: none;
+        margin-top: 20px;
     }
     .latest-news ul li a {
         font-size: 14px;
@@ -100,5 +173,4 @@
     .contact ul li p {
         font-size: 14px;
     }
-    
 }

@@ -53,13 +53,18 @@ body {
     font: 14px 'Arial', sans-serif;
 }
 
-nav.menu {
+div.menu {
     width: 92.5%;
     margin: 0;
     margin-top: 40px;
     margin-bottom: 40px;
     border-bottom: 1px solid #ababab;
     border-top: 1px solid #ababab;
+}
+
+.menu a.main-item {
+    display: block;
+    display: none;
 }
 
 .top-menu {
@@ -142,7 +147,28 @@ nav.menu {
     float: left;
     width: 48.64%;/*450px;*/
     margin: 0;
+    position:relative;
 }
+.right-featuerd-article div.text-right {
+    display: inline-block;
+    position: absolute;
+    left: 20px;
+    top: 20%;
+    color: #ffffff;
+    font-family: 'Tahoma';
+    font-size: 36px;
+}
+
+.right-featuerd-article div.text-right h3 {
+    font-weight: normal;
+    font-size: 2vw;
+}
+.right-featuerd-article div.text-right h1 {
+    font-weight: normal;
+    margin: 0;
+    font-size: 3vw;
+}
+
 .right-featuerd-article img {
     width: 100%;
 }
@@ -262,7 +288,7 @@ nav.menu {
     padding-bottom: 10px;
 }
 .contact ul li p img {
-    padding-right: 1%; /*10px;*/
+    padding-right: 3%; /*10px;*/
 }
 .contact ul li p.phone, p.fax, p.e-mail {
     width: 90%;
@@ -296,7 +322,7 @@ nav.menu {
 }
 .clients div.img-clients img {
     width: 9%;
-    padding: 0.5% 3.24%; /*0.54054054% 3.243243%;5px 30px;*/
+    padding: 0.5% 3.24%; /*5px 30px*/
 }
 
 .footer {
@@ -334,7 +360,6 @@ nav.menu {
     text-align: center;
     margin: 0;
 }
-
 
 .clr
 {
